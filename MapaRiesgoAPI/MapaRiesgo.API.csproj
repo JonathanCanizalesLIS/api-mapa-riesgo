@@ -131,7 +131,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LISTMS.DL\MapaRiesgo.DL.csproj" />
     <ProjectReference Include="..\MapaRiesgo.DL\MapaRiesgo.DL.csproj" />
   </ItemGroup>
 
