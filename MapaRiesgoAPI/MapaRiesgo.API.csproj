@@ -1,0 +1,186 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Configurations>Debug;Release;Testing</Configurations>
+    <OutputType>Exe</OutputType>
+    <Platforms>AnyCPU;ARM64</Platforms>
+  </PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == '' Or '$(Configuration)' == 'Debug'">
+		<EnvironmentName>Development</EnvironmentName>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' != '' AND '$(Configuration)' != 'Debug' ">
+		<EnvironmentName>Production</EnvironmentName>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Testing|AnyCPU'">
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Assets\Temporal\**" />
+	  <Compile Remove="Classes\ConvertirXML\**" />
+	  <Content Remove="Assets\Temporal\**" />
+	  <Content Remove="Classes\ConvertirXML\**" />
+	  <EmbeddedResource Remove="Assets\Temporal\**" />
+	  <EmbeddedResource Remove="Classes\ConvertirXML\**" />
+	  <None Remove="Assets\Temporal\**" />
+	  <None Remove="Classes\ConvertirXML\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="BusinessLogic\CatalogoClickbalanceBusiness.cs" />
+	  <Compile Remove="BusinessLogic\EmpresaBusiness.cs" />
+	  <Compile Remove="BusinessLogic\MantenimientoBusiness.cs" />
+	  <Compile Remove="BusinessLogic\RequisicionBusiness.cs" />
+	  <Compile Remove="BusinessLogic\UsuarioBusiness.cs" />
+	  <Compile Remove="Controllers\CatalogoClickbalanceController.cs" />
+	  <Compile Remove="Controllers\EmpresaController.cs" />
+	  <Compile Remove="Controllers\MantenimientoController.cs" />
+	  <Compile Remove="Controllers\RequisicionController.cs" />
+	  <Compile Remove="Controllers\SistemaController.cs" />
+	  <Compile Remove="Controllers\UsuarioController.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Assets\temp.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="OpenAPIs\swagger.json" ClassName="Taller" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="OpenAPIs\swagger1.json" ClassName="FormatosAPI" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="OpenAPIs\.json" ClassName="FormatosAPI" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="OpenAPIs\1.json" ClassName="Formatos" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="OpenAPIs\swagger2.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="OpenAPIs\2.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="OpenAPIs\3.json" ClassName="ClassName=&quot;{controller}ServiceClient&quot;" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <OpenApiReference Include="OpenAPIs\swagger3.json" CodeGenerator="NSwagCSharp" ClassName="FormatosApi" Namespace="FormatosApi" Options="FormatosApi">
+	    <SourceUri>https://az-as-formatoslis.azurewebsites.net/swagger/v1/swagger.json</SourceUri>
+	  </OpenApiReference>
+	</ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="7.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NSwag.ApiDescription.Client" Version="13.18.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Sentry" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="6.3.0" />
+    <PackageReference Include="SSH.NET" Version="2020.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="7.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.4" />
+    <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.Federation" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.10.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LISTMS.DL\MapaRiesgo.DL.csproj" />
+    <ProjectReference Include="..\MapaRiesgo.DL\MapaRiesgo.DL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Temporal\OpenAI\Training.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\Templates\Formato Guías Identificación.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Templates\Formato Insumos.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Templates\Formato Recepciones.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Templates\Formato Requisiciones.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Temporal\OpenAI\Audio.m4a">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Temporal\OpenAI\Audio2.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Temporal\OpenAI\schemadb.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Temporal\OpenAI\schemayaml.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Temporal\OpenAI\Training.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Temporal\OpenAI\Training.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Temporal\OpenAI\Training.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Connected Services\" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

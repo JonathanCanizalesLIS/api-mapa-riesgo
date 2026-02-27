@@ -1,0 +1,1335 @@
+# Esquema simplificado: lista de tablas con clave primaria y columnas principales.
+# Este YAML resume cada tabla con: nombre, clave primaria (si aplica) y columnas principales.
+# Formato fácil para IA: array de objetos {table, pk, cols}
+# Información adicional:
+	- Base de datos MS SQL. No terminar las consultas con ;
+	- Prohibido generar scripts con UPDATE, DELETE, ALTER, TRUNCATE
+	- Prohibido hacer consultas al campo 'password' de la tabla 'usuario'
+	- Cuando se solicite un reporte no se deben incluir mas de 7 campos en la consulta a menos que se especifique
+	- Los campos 'estatus' tienen valores 'A' (Alta) o 'B' (Baja)
+	- El 'id_idioma' por defecto es 1
+	- 
+	- Valores de la tabla guia_estatus son: 
+		1	guia en Edición 
+		2	guia en Aceptado
+		3	guia Cancelado
+		4	guia En Proceso
+
+	- Valores de la tabla guia_estatus son: 
+		0	Programado
+		1	Capturado
+		2	Ruta
+		3	Terminado
+		4	Liquidado
+		5	Liberado
+		6	Cancelado
+		7	Por Cargar
+		8	Por Despachar
+		9	Llegada a Destino
+		10	Entregado
+
+schema:
+	- table: aduana
+		pk: [id_aduana]
+		cols: [clave, descripcion]
+	- table: alarma
+		pk: [id_alarma]
+		cols: [id_tipo, id_frecuencia, id_proveedor, fecha_siguiente, estatus]
+	- table: alarma_frecuencia
+		pk: [id_frecuencia]
+		cols: [nombre]
+	- table: alarma_frecuencia_idioma
+		pk: [id_frecuencia, id_idioma]
+		cols: [nombre]
+	- table: alarma_log
+		pk: [id_alarma, consecutivo]
+		cols: [fecha, mensaje]
+	- table: alarma_tipo
+		pk: [id_tipo]
+		cols: [nombre, descripcion, estatus]
+	- table: alarma_tipo_idioma
+		pk: [id_tipo, id_idioma]
+		cols: [nombre]
+	- table: anticipo
+		pk: [id_anticipo]
+		cols: [num_anticipo, id_empresa, monto_anticipo, fecha_anticipo, estatus]
+	- table: anticipo_concepto
+		pk: [id_concepto]
+		cols: [descripcion, estatus]
+	- table: anticipo_desglose
+		pk: [id_anticipo, id_concepto]
+		cols: [monto]
+	- table: anticipo_estatus
+		pk: [id_estatus]
+		cols: [nombre, descripcion]
+	- table: api_key_ia
+		pk: [id_api_key]
+		cols: [servicio, key]
+	- table: archivo
+		pk: [id_archivo]
+		cols: [id_empresa, nombre, ruta, bytes, estatus]
+	- table: arrendatarios
+		pk: [id_arrendatario]
+		cols: [id_empresa, nombre, rfc, estatus]
+	- table: aviso
+		pk: [id_aviso]
+		cols: [id_remitente, asunto, mensaje, estatus, fecha_vigencia]
+	- table: aviso_destinatario
+		pk: [id_aviso, id_usuario]
+		cols: [estatus]
+	- table: ayuda
+		pk: [id_ayuda, id_idioma]
+		cols: [ruta_archivo]
+	- table: ayuda_menu
+		pk: [id_ayuda, id_menu]
+		cols: []
+	- table: banco
+		pk: [id_banco]
+		cols: [nombre, id_empresa, id_tipo, saldo_inicial, estatus]
+	- table: banco_bancosat
+		pk: [id_bancosat]
+		cols: [clave_sat, descripcion, razon_social, estatus]
+	- table: banco_concepto
+		pk: [id_concepto]
+		cols: [nombre, descripcion, estatus]
+	- table: banco_concepto_clasificacion
+		pk: [id_clasificacion]
+		cols: [nombre, descripcion]
+	- table: banco_concepto_clasificacion_idioma
+		pk: [id_clasificacion, id_idioma]
+		cols: [nombre]
+	- table: banco_concepto_grupo
+		pk: [id_grupo]
+		cols: [nombre, descripcion, id_naturaleza, estatus]
+	- table: banco_movimiento
+		pk: [id_movimiento]
+		cols: [num_movimiento, id_empresa, monto, id_banco, fecha_doc, estatus]
+	- table: banco_movimiento_detalle
+		pk: [id_movimiento, consecutivo]
+		cols: [monto, id_concepto, referencia_documento]
+	- table: banco_movimiento_detalle_documento
+		pk: [id_documento]
+		cols: [nombre]
+	- table: banco_movimiento_estatus
+		pk: [estatus]
+		cols: [descripcion]
+	- table: banco_periodo
+		pk: [id_periodo]
+		cols: [id_banco, periodo, saldo_inicial, saldo_final, estatus]
+	- table: banco_rol
+		pk: [id_tipo]
+		cols: [nombre, descripcion]
+	- table: banco_solicitud
+		pk: [id_solicitud]
+		cols: [num_solicitud, id_empresa, monto, id_banco, estatus, fecha_siguiente_repeticion]
+	- table: botones
+		pk: [id_boton]
+		cols: [descripcion]
+	- table: botones_seguridad
+		pk: [id_menu, id_grupo, id_boton]
+		cols: []
+	- table: c_clave_prod_serv_cp
+		pk: [id_claveprodserv]
+		cols: [clave, descripcion, estatus]
+	- table: c_config_autotransporte
+		pk: [id_config_autotransporte]
+		cols: [clave, descripcion, estatus]
+	- table: c_fraccion_arancelaria
+		pk: [id_fraccion_arancelaria]
+		cols: [clave, descripcion, estatus]
+	- table: c_material_peligroso
+		pk: [id_material_peligroso]
+		cols: [clave, descripcion, estatus]
+	- table: c_motivo_cancelacion_sat
+		pk: [id_motivo_cancelacion]
+		cols: [clave, descripcion, estatus]
+	- table: c_parte_transporte
+		pk: [id_parte_transporte]
+		cols: [clave, descripcion, estatus]
+	- table: c_sub_tipo_remolque
+		pk: [id_subtiporem]
+		cols: [clave, descripcion, estatus]
+	- table: c_tipo_embalaje
+		pk: [id_tipoembalaje]
+		cols: [clave, descripcion, estatus]
+	- table: c_tipo_permiso_sct
+		pk: [id_tipopermiso]
+		cols: [clave, descripcion, estatus]
+	- table: c_unidad_embalaje
+		pk: [id_unidadembalaje]
+		cols: [clave, descripcion, estatus]
+	- table: cadena_pago
+		pk: [id_cadena_pago]
+		cols: [clave, descripcion]
+	- table: clave_producto_servicio
+		pk: [id_claveprodserv]
+		cols: [clave, descripcion, estatus]
+	- table: cliente
+		pk: [id_cliente]
+		cols: [num_cliente, nombre, id_empresa, rfc, estatus]
+	- table: cliente_cobranza
+		pk: [id_cliente]
+		cols: [id_iva, id_retencion, dias_credito]
+	- table: cliente_contacto
+		pk: [id_cliente, id_contacto]
+		cols: [nombre_contacto, puesto_contacto, email1_contacto, estatus]
+	- table: cliente_metodo_pago
+		pk: [id_metodo_pago]
+		cols: [estatus]
+	- table: cliente_rec_ent
+		pk: [id_rec_ent]
+		cols: [id_empresa, id_cliente, descripcion, direccion, latitud, longitud]
+	- table: cliente_tipo_rol
+		pk: [id_rol]
+		cols: [nombre, descripcion]
+	- table: combustible
+		pk: [id_combustible]
+		cols: [nombre, id_empresa, estatus]
+	- table: combustible_tarifa
+		pk: [id_tarifa]
+		cols: [nombre, id_empresa, estatus]
+	- table: combustible_vale
+		pk: [id_vale]
+		cols: [num_vale, id_empresa, id_proveedor, id_combustible, monto_combustible, fecha_combustible, estatus]
+	- table: comprobante_tipo
+		pk: [id_comprobante_tipo]
+		cols: [clave, descripcion]
+	- table: concepto_permisionario
+		pk: [id_concepto]
+		cols: [nombre, id_empresa, estatus]
+	- table: conceptos_contables
+		pk: [id_concepto_contable]
+		cols: [cuenta_contable, id_empresa, estatus]
+	- table: configuracion_rango_vencimiento
+		pk: [id_rango_vencimiento]
+		cols: [tipo, desc_rango_vencimiento, inicio, fin]
+	- table: consulta
+		pk: [id_consulta]
+		cols: [descripcion, dfrom, dwhere, dorderby]
+	- table: consulta_detalle
+		pk: [id_consulta, consecutivo]
+		cols: [nombre_interno, tipo_dato, orden]
+	- table: consulta_vista
+		pk: [id_vista]
+		cols: [id_consulta, nombre, dselect, dfrom, dwhere, dorderby]
+	- table: contacto
+		pk: [id_contacto]
+		cols: [nombre, apellido1, telefono1, email, estatus]
+	- table: contacto_puesto
+		pk: [id_puesto]
+		cols: [nombre, descripcion, estatus]
+	- table: convenio
+		pk: [id_convenio]
+		cols: [id_empresa, id_cliente, id_remitente, id_plaza_origen, flete, subtotal, monto_iva]
+	- table: convenio_producto
+		pk: [id_convenio, consecutivo]
+		cols: [id_producto, cantidad, descripcion, peso, valor_mercancia]
+	- table: cotizacion_viaje_factores
+		pk: [id_cotizacion]
+		cols: [id_empresa, id_tipo_viaje, costo_combustible, rendimiento_cargado]
+	- table: cuenta_cliente
+		pk: [id_cuenta]
+		cols: [nombre, id_empresa, id_cliente, estatus]
+	- table: descripcion_flete
+		pk: [id_descripcion_flete]
+		cols: [descripcion, estatus]
+	- table: electronico
+		pk: [id_documento]
+		cols: [id_empresa, tipo_doc, id_cliente, rfc_emisor, rfc_receptor, uuid, total]
+	- table: electronico_certificado
+		pk: [id_certificado]
+		cols: [id_empresa, no_certificado, ruta_cer, ruta_key, estatus]
+	- table: electronico_control_pagos
+		pk: [id_pago_electronico]
+		cols: [id_pago, id_documento, id_estatus, monto_pago_timbrado]
+	- table: electronico_estatus
+		pk: [id_estatus]
+		cols: [nombre]
+	- table: electronico_peru_ticket
+		pk: [id_ticket]
+		cols: [id_empresa, id_guia, no_ticket, subtotal, igv]
+	- table: embalaje
+		pk: [id_embalaje]
+		cols: [id_empresa, nombre, estatus]
+	- table: empresa
+		pk: [id_empresa]
+		cols: [nombre, rfc, calle, ciudad, codigo_postal, id_pais, id_estado]
+	- table: empresa_configuracion
+		pk: [id_empresa]
+		cols: [formato_fecha, id_idioma, moneda, id_und_med_peso, habilitar_ia, limite_consumo_ia]
+	- table: empresa_regimen_fiscal
+		pk: [id_regimenfiscal]
+		cols: [descripcion, claveSAT]
+	- table: esquema
+		pk: [id_esquema]
+		cols: [nombre, tope]
+	- table: estado
+		pk: [id_estado]
+		cols: [id_pais, nombre, clave, estatus]
+	- table: estado_cuenta
+		pk: [id_estado_cuenta]
+		cols: [id_empresa, unidades_contratadas, periodo, vigencia]
+	- table: estatus_catalogo
+		pk: [estatus]
+		cols: [descripcion]
+	- table: estatus_viaje_custom
+		pk: [id_estatus_viaje]
+		cols: [id_empresa, nombre, estatus]
+	- table: etiqueta
+		pk: [id_etiqueta]
+		cols: [descripcion, estatus]
+	- table: evidencia
+		pk: [id_evidencia]
+		cols: [id_empresa, descripcion, estatus]
+	- table: factura
+		pk: [id_factura]
+		cols: [num_factura, id_empresa, id_cliente, subtotal, total, id_estatus]
+	- table: factura_xml
+		pk: [id]
+		cols: [id_factura, num_factura, id_empresa, xmltimsa, procesado]
+	- table: forma_pago
+		pk: [id_forma_pago]
+		cols: [descripcion]
+	- table: free_tier
+		pk: [id_api_key]
+		cols: [gem_2_5_pro, gem_2_5_flash]
+	- table: funcion_ia
+		pk: [id_funcion_ia]
+		cols: [id_modelo_ia, nombre, limite_input, limite_output]
+	- table: general_parametros
+		pk: [id_parametro]
+		cols: [nombre, valor, modulo, tipo]
+	- table: general_sitios_ftp
+		pk: [id_ftp]
+		cols: [id_empresa, ftp_nombre, ftp_server, ftp_user]
+	- table: guia
+		pk: [id_guia]
+		cols: [num_guia, id_empresa, id_cliente, id_convenio, fecha, id_factura, flete, subtotal, total, estatus]
+	- table: guia_producto
+		pk: [id_guia, consecutivo]
+		cols: [id_producto, cantidad, descripcion, peso, valor_mercancia]
+	- table: guia_otros
+		pk: [id_guia, consecutivo]
+		cols: [id_concepto, monto, descripcion]
+	- table: guia_evidencia_foto
+		pk: [id_guia, id_evidencia, consecutivo]
+		cols: [name, descripcion, foto, fecha]
+	- table: guia_regimen_aduanero
+		pk: [id_regimen_aduanero]
+		cols: [clave, descripcion, estatus]
+	- table: guia_tipo_cobro
+		pk: [id_tipo_cobro]
+		cols: [descripcion]
+	- table: guia_tipo_documento
+		pk: [id_tipo_documento]
+		cols: [descripcion]
+	- table: guia_viaje
+		cols: [id_guia, id_operador, id_unidad, peso_bruto_vehicular]
+	- table: idioma
+		pk: [id_idioma]
+		cols: [nombre, estatus]
+	- table: ieps
+		pk: [id_ieps]
+		cols: [id_empresa, anio, mes, id_combustible, factor_ieps]
+	- table: imagenes
+		pk: [id_imagen]
+		cols: [nombre, imagen_base64, estatus]
+	- table: impresion
+		pk: [id_impresion]
+		cols: [descripcion]
+	- table: impresion_detalle
+		pk: [id_impresion, consecutivo]
+		cols: [nombre_externo, nombre_interno, posicionX, posicionY, ancho, alto]
+	- table: impresion_secciones
+		pk: [id_impresion, id_seccion]
+		cols: [nombre, orden]
+	- table: impresion_secciones_idioma
+		pk: [id_idioma, id_impresion, id_seccion]
+		cols: [id_idioma, id_impresion, id_seccion, nombre]
+	- table: impresion_vista
+		pk: [id_vista]
+		cols: [id_impresion, id_vista, id_empresa, nombre, tipo_papel, tipo_letra, medida, alto, ancho, estatus, no_paginas]
+	- table: impresion_vista_detalle
+		pk: [id_vista, consecutivo]
+		cols: [id_vista, consecutivo, nombre_externo, nombre_interno, PosicionX, PosicionY, Alto, Ancho, Size, id_seccion, requerido, renglones, detalle, alinear, espacioizq, espaciotop, border, texto, cantidadconletra, tipo_dato, formato, no_pagina, id_imagen, negrita, imprimircero]
+	- table: impuesto
+		pk: [id_impuesto]
+		cols: [id_impuesto, descripcion, factor, estatus, id_clasificacion, id_empresa, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, is_objeto_de_iva]
+	- table: impuesto_clasificacion
+		pk: [id_clasificacion]
+		cols: [id_clasificacion, nombre]
+	- table: impuesto_clasificacion_idioma
+		pk: [id_clasificacion, id_idioma]
+		cols: [id_clasificacion, id_idioma, nombre]
+	- table: impuesto_impuesto
+		pk: [id_impuesto]
+		cols: [id_impuesto, clave, descripcion]
+	- table: interface_configuracion
+		pk: [id_interface]
+		cols: [id_interface, id_empresa, nombre, fecha_inicio, tipo_frecuencia, frecuencia, fecha_siguiente, url_api]
+	- table: interfaz_proveedores_gps
+		pk: [id]
+		cols: [id, nombre, referencia, configurar_usuario, configurar_contrasenia, configurar_empresa, configurar_fecha, configurar_token, id_pais, webservice, ruta_imagen]
+	- table: liquidacion
+		pk: [id_liquidacion]
+		cols: [id_liquidacion, id_empresa, id_personal, id_ingreso, fecha_ingreso, fecha_modifico, id_modifico, monto_anticipo, monto_percepcion, monto_gasto, monto_total, id_unidad_motriz, num_liquidacion, id_estatus, rend_reseteo, fecha, id_solicitud, referencia_pago, fecha_pago, id_usuario_pago, fecha_cancelacion, id_usuario_cancelo, id_tipo_adeudo, referencia_adeudo, id_moneda, motor_electrico, id_sucursal, total_kilometros, total_viajes, id_convenio_liquidacion, id_tiponomina, fecha_inicial, fecha_final, numdiaspagados, claveConfirmacion, IMSS, isr, infonavit, otras_deducciones, otras_percepciones, odometro_inicial, odometro_final, actualiza_unidad, observaciones, subsidio_empleo, id_tipo_sueldo, id_tipo_viaje, id_tipo_comprobacion_gasto_clickb, id_asociado_deudor_clickb, id_comprobacion_gasto_cb, folio_comprobacion_gasto_cb]
+	- table: liquidacion_concepto
+		pk: [id_concepto]
+		cols: [id_concepto, id_clasificacion, nombre, id_iva, id_retencion, id_combustible, id_empresa, estatus, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, id_complemento, id_complemento_atributo, id_tipo_gasto_clickb]
+	- table: liquidacion_concepto_complemento
+		pk: [id_complemento]
+		cols: [id_complemento, descripcion, estatus]
+	- table: liquidacion_concepto_deduccion
+		pk: [id_deduccion]
+		cols: [id_deduccion, clave_sat, descripcion, comentario, estatus]
+	- table: liquidacion_concepto_incapacidad
+		pk: [id_incapacidad]
+		cols: [id_incapacidad, descripcion, estatus]
+	- table: liquidacion_concepto_percepcion
+		pk: [id_percepcion]
+		cols: [id_percepcion, clave_sat, descripcion, estatus]
+	- table: liquidacion_directa
+		pk: [id_liquidacion_directa]
+		cols: [id_liquidacion_directa, id_personal, id_bancosat, fecha_pago, fecha_inicial, fecha_final, id_estatus, id_ingreso, fecha_ingreso, fecha_modifico, id_empresa, id_moneda, id_sucursal, monto_gravable, monto_excento, monto_total, num_liquidacion_directa, observaciones, id_tiponomina, id_liquidacion_tipo, totalpagado, numanioserv, ultsueldomens, ingresoacum, ingresonoacum, numdiaspagados, claveConfirmacion, subsidio_empleo]
+	- table: liquidacion_directa_detalle
+		pk: []
+		cols: [id_liquidacion_directa, id_percepcion, id_deduccion, monto_gravable, monto_excento]
+	- table: liquidacion_estatus
+		pk: [id_estatus]
+		cols: [id_estatus, nombre]
+	- table: liquidacion_estatus_idioma
+		pk: [id_estatus, id_idioma]
+		cols: [id_estatus, nombre, id_idioma]
+	- table: liquidacion_gasto
+		pk: [id_liquidacion, consecutivo]
+		cols: [id_liquidacion, consecutivo, id_concepto, cantidad, id_unidad_medida_volumen, volumen_base, monto_subtota, monto_iva, monto_retencion, monto_total, referencia, concepto_gasto, id_convenio_liquidacion, id_concepto_anticipo_liq, folio_fiscal, id_tipo_gasto_clickb, id_asociado_deudor_clickb, id_forma_pago_clickb, id_centro_costo_clickb, id_documento_gasto_clickb, folio_documento_gasto_clickb]
+	- table: liquidacion_guia
+		pk: [id_liquidacion, consecutivo]
+		cols: [id_liquidacion, consecutivo, id_viaje, id_guia, flete]
+	- table: liquidacion_permisionario
+		pk: [id_liquidacion_permisionario]
+		cols: [id_liquidacion_permisionario, num_liquidacion_permisionario, id_empresa, id_sucursal, fecha, id_permisionario, id_estatus, fecha_inicial, fecha_final, total_anticipos, total_pago_flete, total_otros_pagos, total_descuentos, monto_total_pagar, id_moneda, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, id_iva, id_usuario_cancelo, fecha_cancelacion, tipo_persona, id_solicitud, referencia_pago, fecha_pago, id_usuario_pago, monto_subtotal, monto_iva, monto_retencion, id_retencion]
+	- table: liquidacion_permisionario_detalle
+		pk: [id_liquidacion_permisionario, consecutivo]
+		cols: [id_liquidacion_permisionario, consecutivo, id_concepto, referencia, subtotal, monto_iva, monto_retencion, monto_total, id_retencion, tipo_concepto]
+	- table: liquidacion_permisionario_estatus
+		pk: [id_estatus]
+		cols: [id_estatus, descripcion]
+	- table: liquidacion_permisionario_estatus_idioma
+		pk: [id_estatus, id_idioma]
+		cols: [id_estatus, nombre, id_idioma]
+	- table: liquidacion_permisionario_guia
+		pk: [id_liquidacion_permisionario, consecutivo]
+		cols: [id_liquidacion_permisionario, consecutivo, id_viaje, id_guia, flete, referencia]
+	- table: liquidacion_sueldo
+		pk: [id_tipo_sueldo]
+		cols: [id_tipo_sueldo, descripcion, tipo_sueldo, id_empresa, fecha_ingreso, fecha_modifico, id_ingreso, id_modifico, factor, estatus]
+	- table: liquidacion_sueldo_relacion
+		pk: [id_sueldo_relacion]
+		cols: [id_sueldo_relacion, id_tipo_sueldo, id_categoria, viaje_tipo, id_empresa, estatus, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico]
+	- table: liquidacion_sueldo_ruta
+		pk: [id_tipo_sueldo, id_ruta]
+		cols: [id_tipo_sueldo, id_ruta, monto]
+	- table: liquidacion_sueldo_tipo
+		pk: [tipo_sueldo]
+		cols: [tipo_sueldo, nombre]
+	- table: liquidacion_sueldo_tipo_idioma
+		pk: [tipo_sueldo, id_idioma]
+		cols: [tipo_sueldo, nombre, id_idioma]
+	- table: liquidacion_tipo
+		pk: [id_liquidacion_tipo]
+		cols: [id_liquidacion_tipo, descripcion]
+	- table: liquidacion_tipo_adeudo
+		pk: [id_tipo_adeudo]
+		cols: [id_tipo_adeudo, nombre]
+	- table: liquidacion_tipo_adeudo_idioma
+		pk: [id_tipo_adeudo, id_idioma]
+		cols: [id_tipo_adeudo, id_idioma, nombre]
+	- table: mapa_error
+		pk: [id_mapa_error]
+		cols: [id_mapa_error, error_servicio, descripcion]
+	- table: medio_pago_peru
+		pk: [id_medio_pago]
+		cols: [id_medio_pago, clave, descripcion, estatus]
+	- table: mensaje
+		pk: [id_mensaje]
+		cols: [id_mensaje, id_clasificacion, descripcion, parametros, estatus]
+	- table: mensaje_clasificacion
+		pk: [id_clasificacion]
+		cols: [id_clasificacion, nombre]
+	- table: mensaje_clasificacion_idioma
+		pk: [id_clasificacion, id_idioma]
+		cols: [id_clasificacion, id_idioma, texto_aceptar, texto_cancelar]
+	- table: mensaje_error
+		pk: [id_error]
+		cols: [id_error, mensaje, fecha, usuario]
+	- table: mensaje_idioma
+		pk: [id_idioma, id_mensaje]
+		cols: [id_idioma, id_mensaje, mensaje]
+	- table: meses
+		pk: [id]
+		cols: [id, clave_meses, descripcion]
+	- table: metodo_pago
+		pk: [id_metodo_pago]
+		cols: [id_metodo_pago, clave, descripcion]
+	- table: modelo_ia
+		pk: [id_modelo_ia]
+		cols: [id_modelo_ia, nombre, costo_input, costo_cache, costo_output, modo]
+	- table: moneda
+		pk: [id_moneda]
+		cols: [id_moneda, nombre, leyenda_moneda, id_empresa, estatus, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, leyenda, id_tipo_moneda]
+	- table: moneda_moneda
+		pk: [clave]
+		cols: [id_moneda_moneda, clave, descripcion, porcentaje_variacion]
+	- table: mtto_unidad
+		pk: [id_mtto, id_empresa]
+		cols: [id_mtto, id_unidad, tipo_mtto, mantenimiento, id_estatus, kms, sig_mtto, kms_sig_mtto, fecha, fecha_sig_mtto, total, total_mano_obra, total_refacc, observaciones, id_empresa, id_ingreso, id_modifico, fecha_ingreso, fecha_modifico, correlativo, folio]
+	- table: mtto_unidad_detalle
+		pk: [id_empresa, id_mtto, consecutivo]
+		cols: [id_empresa, id_mtto, consecutivo, actividad, id_tipo_act, mano_obra, refacciones, observaciones]
+	- table: mtto_unidad_estatus
+		pk: [tipo_estatus]
+		cols: [tipo_estatus, nombre]
+	- table: mtto_unidad_estatus_idioma
+		pk: [tipo_estatus, id_idioma]
+		cols: [tipo_estatus, nombre, id_idioma]
+	- table: mtto_unidad_tipo_actividad
+		pk: [id_tipo_act]
+		cols: [id_tipo_act, nombre]
+	- table: mtto_unidad_tipo_actividad_idioma
+		pk: [id_tipo_act, id_idioma]
+		cols: [id_tipo_act, nombre, id_idioma]
+	- table: mtto_unidad_tipo_mtto
+		pk: [tipo_mtto]
+		cols: [tipo_mtto, nombre, orden]
+	- table: mtto_unidad_tipo_mtto_idioma
+		pk: [tipo_mtto, id_idioma]
+		cols: [tipo_mtto, nombre, id_idioma]
+	- table: nomina_tipo
+		pk: [id_tiponomina]
+		cols: [id_tiponomina, tiponomina, descripcion]
+	- table: nota_cargo
+		pk: [id_cargo]
+		cols: [id_cargo, num_cargo, id_empresa, id_factura, id_tipo, id_serie, id_estatus, id_moneda, subtotal, monto_iva, monto_retencion, fecha, observaciones, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, id_iva, id_retencion, id_plaza_emision, claveConfirmacion, id_tipo_peru, motivo_cancelacion, estatus_cancelacion, id_motivo_cancelacion, fecha_solicitud_cancelacion, uuid_relacion_cancelacion, id_nota_cargo_relacion_cancelacion, sustituye_documento, monto_pago, fecha_cancelacion, id_tipodoc_clickb, id_documento_clickb, id_tipo_pago_clickb, folio_clickb, nombre_tipodoc_clickb, id_estatus_clickb, id_forma_pago, id_metodo_pago]
+	- table: nota_cargo_adenda
+		pk: [id_cargo, id_adenda, consecutivo]
+		cols: [id_cargo, id_adenda, consecutivo, campo, valor]
+	- table: nota_cargo_cfdi_relacion
+		pk: []
+		cols: [id_cargo, id_guia_relacionada, folio_factura, tipo_relacion, uuid]
+	- table: nota_cargo_detalle
+		pk: [id_cargo, consecutivo]
+		cols: [id_cargo, consecutivo, descripcion, monto_subtotal, monto_iva, monto_retencion, factor_iva, factor_retencion, id_concepto, id_objeto_impuesto, cantidad, monto]
+	- table: nota_cargo_estatus
+		pk: [id_estatus]
+		cols: [id_estatus, nombre, descripcion]
+	- table: nota_cargo_estatus_idioma
+		pk: [id_estatus, id_idioma]
+		cols: [id_estatus, id_idioma, nombre]
+	- table: nota_cargo_tipo_peru
+		pk: [id_tipo]
+		cols: [id_tipo, clave, descripcion, estatus]
+	- table: nota_credito
+		pk: [id_credito]
+		cols: [id_credito, num_credito, id_empresa, id_factura, id_tipo, id_serie, id_estatus, id_moneda, subtotal, monto_iva, monto_retencion, fecha, observaciones, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, id_iva, id_retencion, id_plaza_emision, claveConfirmacion, id_tipo_peru, id_tipofacturarelacionada, id_metodo_pago, id_forma_pago, fecha_cancelacion, fecha_solicitud_cancelacion, id_motivo_cancelacion, motivo_cancelacion, uuid_relacion_cancelacion, id_nota_credito_relacion_cancelacion, sustituye_documento, estatus_cancelacion, id_forma_pago_peru, fecha_vencimiento_peru, id_tipodoc_clickb, id_documento_clickb, id_tipo_pago_clickb, folio_clickb, nombre_tipodoc_clickb, id_estatus_clickb]
+	- table: nota_credito_adenda
+		pk: [id_credito, id_adenda, consecutivo]
+		cols: [id_credito, id_adenda, consecutivo, campo, valor]
+	- table: nota_credito_cfdi_relacion
+		pk: []
+		cols: [id_credito, id_guia_relacionada, folio_factura, tipo_relacion, uuid]
+	- table: nota_credito_cuotas_peru
+		pk: [id_credito, consecutivo]
+		cols: [id_credito, consecutivo, descripcion, monto, fecha]
+	- table: nota_credito_detalle
+		pk: [id_credito, consecutivo]
+		cols: [id_credito, consecutivo, descripcion, monto_subtotal, monto_iva, monto_retencion, factor_iva, factor_retencion, id_concepto, id_objeto_impuesto, cantidad, monto]
+	- table: nota_credito_estatus
+		pk: [id_estatus]
+		cols: [id_estatus, nombre, descripcion]
+	- table: nota_credito_estatus_idioma
+		pk: [id_estatus, id_idioma]
+		cols: [id_estatus, id_idioma, nombre]
+	- table: nota_credito_tipo
+		pk: [id_tipo]
+		cols: [id_tipo, nombre]
+	- table: nota_credito_tipo_peru
+		pk: [id_tipo]
+		cols: [id_tipo, clave, descripcion, estatus]
+	- table: num_unidades
+		pk: [id_num_unidades]
+		cols: [id_num_unidades, descripcion]
+	- table: objetivos
+		pk: [id_objetivo]
+		cols: [id_objetivo, id_empresa, periodo, ingresos, viajes]
+	- table: objeto_impuesto
+		pk: [id_objeto_impuesto]
+		cols: [id_objeto_impuesto, clave, descripcion, estatus]
+	- table: objeto_impuesto_idioma
+		pk: [id_objeto_impuesto]
+		cols: [id_objeto_impuesto, nombre, id_idioma]
+	- table: orden_compra_viaje
+		pk: [id_orden_compra]
+		cols: [id_orden_compra, num_orden_compra, orden_compra, id_empresa, num_pedido, num_vale, proveedor, producto, fecha_pago, factura_proveedor, complemento_pago_proveedor, tonelaje_compra, monto_compra, remision, tonelaje_remision, monto_venta, tonelaje_venta, peso_bascula, fecha_ingreso, id_ingreso, fecha_modifico, id_modifico, id_remitente, id_plaza_origen, id_destinatario, id_plaza_destino]
+	- table: pagos_clientes
+		pk: [id]
+		cols: [name, activo, id]
+	- table: pagos_cortes
+		pk: [id]
+		cols: [empresa_id, partida_id, pago_id, fecha, descripcion, monto, id, unidades, estatus_comision, observaciones_comision, comision_promotor]
+	- table: pagos_empresas
+		pk: [id]
+		cols: [name, id, razon_social, rfc, calle, colonia, estado, delegacion, pais, cp, numero, numero_interior, telefono, correo, password, created, modified, activo, promotor_id, ciudad, vigencia, nombre_del_contacto, premium, referencia_id, referencia_otro, fechaCorte, unidades_contratadas, usuario_contrato_unidades, unidades_pagadas, unidades_agregadas]
+	- table: pagos_fpagos
+		pk: [id]
+		cols: [name, forma, host, url, user, password, clientid, mode, descripcion, respuesta, id]
+	- table: pagos_fpagos_reglas
+		pk: [id]
+		cols: [id, descripcion, fpago_id, porcentaje_comision]
+	- table: pagos_grupos
+		pk: [id]
+		cols: [name, seguridad, creado, modificado, ts, id]
+	- table: pagos_listimbrados
+		pk: [id]
+		cols: [id, fecha_compra, activo, cantidad, observaciones, saldo, proveedor, precio]
+	- table: pagos_pagos
+		pk: [id]
+		cols: [empresa_id, fpago_id, promotor_id, monto_pago, created, id, estatus, datos_transaccion, pagarpromotor, pendiente_facturar, comision_promotor, id_corte]
+	- table: pagos_partidas
+		pk: [id]
+		cols: [servicio_id, name, precio, id, meses, base, edodecuenta, activo, descripcion, rangoinicial, rangofinal, pais]
+	- table: pagos_promotores
+		pk: [id]
+		cols: [name, correo, password, slug, created, modified, activo, id, promotor_lis, razon_social, banco, cuenta_bancaria, clabe_interbancaria, forma_pago]
+	- table: pagos_referenciacontactos
+		pk: [id]
+		cols: [id, name, descripcion, orden]
+	- table: pagos_reglas
+		pk: [id]
+		cols: [grupo_id, nombre, orden, accion, permitir, padre, creado, modificado, ts, id]
+	- table: pagos_servicios
+		pk: [id]
+		cols: [name, porcentaje_promotor, webservice, id, activo, descripcion]
+	- table: pagos_servicios_comisiones
+		pk: [id]
+		cols: [id, servicio_id, rango_inicial_meses, rango_final_meses, descripcion, porcentaje, porcentaje_lis]
+	- table: pagos_servicioscontratados
+		pk: [id]
+		cols: [empresa_id, promotor_id, servicio_id, fecha_contratacion, id, pago_id, cantidad]
+	- table: pagos_timbrados
+		pk: [id]
+		cols: [id, empresa_id, fecha_compra, activo, cantidad, observaciones, saldo]
+	- table: pagos_timbreslistmslis
+		pk: [listimbres_id, listmstimbres_id]
+		cols: [listimbres_id, listmstimbres_id, saldo_relacionado]
+	- table: pagos_timbreszamlis
+		pk: [listimbres_id, zamtimbres_id]
+		cols: [listimbres_id, zamtimbres_id, saldo_relacionado]
+	- table: pagos_usuarios
+		pk: [id]
+		cols: [cliente_id, seguridad, name, usuario, password, correo, supervisor, created, modified, activo, id]
+	- table: pagos_usuarios_grupos
+		pk: [id]
+		cols: [usuario_id, grupo_id, seguridad, id]
+	- table: pagos_zamlicencias
+		pk: [id]
+		cols: [id, cliente_id, estatus, licenciaPB, licenciaNET, observaciones, fecha_registro]
+	- table: pagos_zamtimbrados
+		pk: [id]
+		cols: [id, cliente_id, fecha_compra, activo, cantidad, observaciones, saldo]
+	- table: pagos_zonas
+		pk: [id_zona]
+		cols: [id_zona, descripcion]
+	- table: pais
+		pk: [id_pais]
+		cols: [id_pais, nombre, id_idioma, region, id_unidad_peso, id_unidad_volumen, id_unidad_distancia, clave, estatus, id_empresa_modelo, clave_peru]
+	- table: pedido
+		pk: [id_pedido]
+		cols: [id_pedido, folio, id_empresa, id_cliente, id_remitente, id_destinatario, id_ruta, id_estatus_pedido, id_viaje, id_ingreso, id_modifico, fecha_ingreso, fecha_modifico, estatus]
+	- table: periodicidad
+		pk: [id]
+		cols: [id, clave_periodicidad, descripcion]
+	- table: permisionario_tarifa
+		pk: [id_tarifa_permisionario]
+		cols: [id_tarifa_permisionario, descripcion, id_tipo_tarifa, id_empresa, fecha_ingreso, id_ingreso, fecha_modifico, id_modifico, factor, estatus]
+	- table: permisionario_tarifa_configuracion
+		pk: [id_tarifa_configuracion]
+		cols: [id_tarifa_configuracion, id_linea_unidad, viaje_tipo, id_tarifa_permisionario, id_empresa, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, estatus]
+	- table: permisionario_tarifa_ruta
+		pk: [id_tarifa_permisionario, id_ruta]
+		cols: [id_tarifa_permisionario, id_ruta, monto]
+	- table: permisionario_tarifa_tipo
+		pk: [id_tipo_tarifa]
+		cols: [id_tipo_tarifa, descripcion]
+	- table: permisionario_tarifa_tipo_idioma
+		pk: [id_tipo_tarifa, id_idioma]
+		cols: [id_tipo_tarifa, nombre, id_idioma]
+	- table: permisionario_tipo_concepto
+		pk: [id_tipo]
+		cols: [id_tipo, nombre, descripcion]
+	- table: personal
+		pk: [id_personal]
+		cols: [id_personal, id_empresa, id_sucursal, id_categoria, nombre, apellido1, apellido2, direccion, sexo, id_estatus, telefono, celular, observaciones, fecha_nacimiento, fecha_contratacion, nombre_busqueda, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, id_proveedor, imss, fecha_venc_contrato, id_regimen, id_jornada, id_periodicidad, claveinterbancaria_sat, curp, rfc, id_tipo_contrato, id_tipo_empleado, cuentabancaria, rfcLabora, id_bancosat, salariodiariointegrado, sindicalizado, IMEI, usuario_routech, password_routech, operador_externo, linea_unidad_personal, num_empleado, departamento, numregidtrib, id_pais, id_estado, ciudad, municipio, colonia, calle, numero, numero_interior, codigo_postal, referencia, tipo_persona, regimen_fiscal, correo, id_empleado_clickb]
+	- table: personal_cat_riesgo
+		pk: [id_clave_sat]
+		cols: [id_clave_sat, descripcion, estatus]
+	- table: personal_categoria
+		pk: [id_categoria]
+		cols: [id_categoria, id_empresa, nombre, descripcion, estatus, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, id_riesgo]
+	- table: personal_estatus
+		pk: [id_estatus]
+		cols: [id_estatus, nombre, descripcion]
+	- table: personal_estatus_idioma
+		pk: [id_estatus, id_idioma]
+		cols: [id_estatus, nombre, id_idioma]
+	- table: personal_jornada
+		pk: [id_jornada]
+		cols: [id_jornada, descripcion, estatus, claveSAT]
+	- table: personal_operador
+		pk: [id_personal]
+		cols: [id_personal, licencia, fecha_vencelicencia, tipolicencia]
+	- table: personal_periodicidad
+		pk: [id_periodicidad]
+		cols: [id_periodicidad, descripcion, estatus]
+	- table: personal_regimen
+		pk: [id_regimen]
+		cols: [id_regimen, clave_sat, descripcion, estatus]
+	- table: personal_tipo_contrato
+		pk: [id_tipo_contrato]
+		cols: [id_tipo_contrato, claveSAT, descripcion]
+	- table: personal_tipo_empleado
+		pk: [id_tipo_empleado]
+		cols: [id_tipo_empleado, clave, descripcion]
+	- table: personal_tipo_persona
+		pk: [id_tipo_persona]
+		cols: [id_tipo_persona, clave, descripcion]
+	- table: peticion_ia
+		pk: [id_peticion_ia]
+		cols: [id_peticion_ia, input_tokens, cache_tokens, output_tokens, id_empresa, id_funcion_ia, id_modelo_ia, fecha, is_free_tier]
+	- table: plaza
+		pk: [id_plaza]
+		cols: [id_plaza, nombre_plaza, nombre_busqueda, id_empresa, id_pais, id_estado, estatus, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, lat, lon]
+	- table: pregunta_frecuente
+		pk: [id_pregunta]
+		cols: [id_pregunta, id_idioma, titulo, resumen, texto_ayuda, estatus, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico]
+	- table: pregunta_ventana
+		pk: [id_pregunta, id_ventana]
+		cols: [id_pregunta, id_ventana, visible_ventana]
+	- table: producto
+		pk: [id_producto]
+		cols: [id_producto, descripcion, id_empresa, id_embalaje, id_unidad_medida_peso, peso, estatus, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, material_peligroso, id_clave_material_peligroso, id_claveprodserv_cp, valor_mercancia, id_tipoembalaje_mp, id_fraccion_arancelaria, id_clave_unidad, id_tipo_materia, descripcion_tipo_materia, id_unidadembalaje, id_tipoembalaje]
+	- table: producto_documento_aduanero
+		pk: [id_documento_aduanero]
+		cols: [id_documento_aduanero, clave, descripcion, estatus]
+	- table: producto_tipo_materia
+		pk: [id_tipo_materia]
+		cols: [id_tipo_materia, clave, descripcion, estatus]
+	- table: Profiling
+		pk: []
+		cols: [spid, StartTime, EndTime]
+	- table: proveedor
+		pk: [id_proveedor]
+		cols: [id_proveedor, id_empresa, nombre, nombre_busqueda, direccion, telefono, telefono_2, telefono_3, codigo_postal, id_pais, id_estado, cuenta_bancaria, id_rol, observaciones, email, id_iva, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, estatus, ruc, rfc]
+	- table: proveedor_cliente
+		pk: [id_proveedor, id_cliente]
+		cols: [id_proveedor, id_cliente]
+	- table: proveedor_combustible
+		pk: [id_proveedor]
+		cols: [id_proveedor, id_tarifa, controla_folio, consecutivo]
+	- table: proveedor_rol
+		pk: [id_rol]
+		cols: [id_rol, nombre, descripcion]
+	- table: proveedor_rol_idioma
+		pk: [id_rol, id_idioma]
+		cols: [id_rol, id_idioma, nombre]
+	- table: regimen_aduanero_guia
+		pk: [id_regimen_aduanero_guia]
+		cols: [id_regimen_aduanero_guia, id_guia, id_regimen_aduanero]
+	- table: reglas_eliminacion_impresion
+		pk: [id]
+		cols: [id, idPais, id_impresion, consecutivo]
+	- table: relacion_tipo
+		pk: [id_relacion_tipo]
+		cols: [id_relacion_tipo, clave, descripcion]
+	- table: relacionllaveprimaria
+		pk: []
+		cols: [id_primario, id_empresa, identificador, id_relacion]
+	- table: routech_estatus
+		pk: [id_routech_estatus]
+		cols: [id_routech_estatus, nombre, descripcion]
+	- table: seguridad_ayuda
+		pk: [id_ayuda]
+		cols: [id_ayuda, descripcion, llave, estatus]
+	- table: seguridad_ayuda_idioma
+		pk: [id_idioma, id_ayuda]
+		cols: [id_idioma, id_ayuda, nombre]
+	- table: seguridad_grupo
+		pk: [id_grupo]
+		cols: [id_grupo, clasegrupo, administrador, estatus]
+	- table: seguridad_grupo_idioma
+		pk: [id_grupo, id_idioma]
+		cols: [id_grupo, id_idioma, descripcion, nombre, estatus]
+	- table: seguridad_menu
+		pk: [id_menu]
+		cols: [id_menu, id_menupadre, orden, estatus, ruta_archivo, version]
+	- table: seguridad_menu_ayuda
+		pk: [id_menu, id_ayuda]
+		cols: [id_menu, id_ayuda, ruta_ayuda]
+	- table: seguridad_menu_idioma
+		pk: [id_menu, id_idioma]
+		cols: [id_menu, id_idioma, nombre, descripcion, estatus]
+	- table: seguridad_menugrupo
+		pk: [id_grupo, id_menu]
+		cols: [id_grupo, id_menu]
+	- table: serie_cargo
+		pk: [id_serie]
+		cols: [id_serie, id_empresa, prefijo, consecutivo, formato, id_controla, estatus, nombre_busqueda, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, tipo_factura, plaza_emision, id_tipodoc_clickb]
+	- table: serie_controla_folio
+		pk: [id_controla]
+		cols: [id_controla, descripcion]
+	- table: serie_controla_folio_idioma
+		pk: [id_controla, id_idioma]
+		cols: [id_controla, id_idioma, nombre]
+	- table: serie_credito
+		pk: [id_serie]
+		cols: [id_serie, id_empresa, prefijo, consecutivo, formato, id_controla, estatus, nombre_busqueda, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, tipo_factura, plaza_emision, id_tipodoc_clickb]
+	- table: serie_guia
+		pk: [id_serie]
+		cols: [id_serie, id_empresa, prefijo, consecutivo, formato, id_controla, estatus, nombre_busqueda, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, plaza_emision, validez_fiscal, is_guia, is_factura, tipo_factura, complemento_cp, id_tipodoc_clickb]
+	- table: serie_tipo
+		pk: [id_tipo_serie]
+		cols: [id_tipo_serie, nombre]
+	- table: serie_tipo_idioma
+		pk: [id_tipo_serie, id_idioma]
+		cols: [id_tipo_serie, id_idioma, descripcion]
+	- table: sesion
+		pk: [id_sesion]
+		cols: [id_sesion, id_usuario, fecha_inicio, navegador, ultima_actividad]
+	- table: sesion_usuario
+		pk: [id_sesion]
+		cols: [id_sesion, id_usuario, id_empresa, token, fecha_inicio, ultima_actividad, navegador]
+	- table: sucursal
+		pk: [id_sucursal]
+		cols: [id_sucursal, id_empresa, nombre, direccion, nombre_busqueda, estatus, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, id_plaza_clickb, codigo_postal]
+	- table: sugerencia_estatus
+		pk: [id_estatus]
+		cols: [id_estatus, nombre, descripcion]
+	- table: sugerencia_estatus_idioma
+		pk: [id_estatus, id_idioma]
+		cols: [id_estatus, id_idioma, nombre]
+	- table: sugerencias
+		pk: [id_sugerencia]
+		cols: [id_sugerencia, descripcion1, descripcion2, descripcion3, id_empresa, id_usuario, id_estatus, fecha_ingreso]
+	- table: tasa_cuota
+		pk: [id_tasa_cuota]
+		cols: [id_tasa_cuota, valor_maximo, impuesto, factor]
+	- table: tipo_carga
+		pk: [id_tipo_carga]
+		cols: [id_tipo_carga, descripcion]
+	- table: tipo_concepto_contable
+		pk: [id_tipo_concepto]
+		cols: [id_tipo_concepto, nombre, estatus]
+	- table: tipo_contribuyente
+		pk: [id_tipo_contribuyente]
+		cols: [id_tipo_contribuyente, nombre, estatus]
+	- table: tipo_exportacion
+		pk: [id_tipo_exportacion]
+		cols: [id_tipo_exportacion, clave, descripcion, estatus]
+	- table: tipo_exportacion_idioma
+		pk: [id_tipo_exportacion]
+		cols: [id_tipo_exportacion, nombre, id_idioma]
+	- table: tipo_moneda
+		pk: [id_tipo_moneda]
+		cols: [id_tipo_moneda, clave, nombre]
+	- table: tipo_operacion_peru
+		pk: [id_tipo_operacion]
+		cols: [id_tipo_operacion, clave, descripcion, estatus]
+	- table: tipo_relacion
+		pk: [id_tipo_relacion]
+		cols: [id_tipo_relacion, clave, descripcion, estatus]
+	- table: tipo_relacion_idioma
+		pk: [id_tipo_relacion]
+		cols: [id_tipo_relacion, nombre, id_idioma]
+	- table: tipos_documento
+		pk: [id_documento]
+		cols: [id_documento, nombre]
+	- table: tipos_documento_idioma
+		pk: [id_documento, id_idioma]
+		cols: [id_documento, nombre, id_idioma]
+	- table: tooltip
+		pk: [id_tooltip]
+		cols: [id_tooltip, id_ventana, id_control, evento, estatus, buscar_en_control, id_form_control, id_control_principal]
+	- table: tooltip_idioma
+		pk: [id_tooltip, id_idioma]
+		cols: [id_tooltip, id_idioma, marca_agua, texto_ayuda]
+	- table: unidad
+		pk: [id_unidad]
+		cols: [id_unidad, num_unidad, id_empresa, id_linea, id_marca, id_tipo, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, placas, vin, id_rol, no_ejes, estatus, observaciones, nombre_busqueda, fecha_sig_mtto, rendimiento_combustible, seguro, fecha_vigencia, modelo, arrendamiento, id_proveedor_gps, antena, ultimaposicion, lat, lon, odometro_actual, motivo_reinicio_odometro, id_remolque_asignado, id_operador, direccion_gps, fecha_gps, id_reinicio_odometro, fecha_reinicio_odometro, num_poliza_seg, id_subtiporem, id_arrendatario, num_permiso_sct, id_parte_transporte, ver_fisica_mecanica, ver_emision_contaminante, peso_bruto_vehicular, tarjeta_circulacion, id_centro_costo_clickb, americana]
+	- table: unidad_clave
+		pk: [id_clave]
+		cols: [id_clave, clave, nombre, id_pais]
+	- table: unidad_fianza
+		pk: [id_fianza]
+		cols: [id_fianza, num_fianza, fecha_internacion, fecha_vencimiento, estatus, id_unidad, id_empresa, id_ingreso, id_modifico, fecha_ingreso, fecha_modifico]
+	- table: unidad_linea
+		pk: [id_linea]
+		cols: [id_linea, nombre, nombre_busqueda, id_empresa, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, estatus, rfc, direccion, telefono, correo, id_institucion_bancaria, cuenta_bancaria, id_iva, id_retencion, dias_credito, id_tipo_persona, nombre_contacto, id_proveedor, numregidtrib, id_pais, id_estado, ciudad, municipio, colonia, calle, numero, numero_interior, codigo_postal, referencia]
+	- table: unidad_marca
+		pk: [id_marca]
+		cols: [id_marca, nombre, nombre_busqueda, id_empresa, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, estatus]
+	- table: unidad_medida
+		pk: [id_unidad_medida]
+		cols: [id_unidad_medida, id_clase, esbase, factor_conversionabase, id_unidad_base, estatus]
+	- table: unidad_medida_clase
+		pk: [id_clase]
+		cols: [id_clase, nombre, estatus]
+	- table: unidad_medida_clasificacion
+		pk: [id_clase]
+		cols: [id_clase, nombre, estatus]
+	- table: unidad_medida_idioma
+		pk: [id_unidad_medida, id_idioma]
+		cols: [id_unidad_medida, nombre_busqueda, nombre, id_idioma, estatus]
+	- table: unidad_motriz
+		pk: [id_unidad]
+		cols: [id_unidad, tipo_combustible1, tipo_combustible2, capacidad_tanque1, capacidad_tanque2, unidad_medida_tanque1, unidad_medida_tanque2, tanque2]
+	- table: unidad_mtto
+		pk: [id_unidad]
+		cols: [id_unidad, sig_mtto, kms_sig_mtto]
+	- table: unidad_posiciones
+		pk: [consecutivo]
+		cols: [consecutivo, id_proveedor, id_unidad, fecha, descripcion, poslon, poslat, velocidad, angulo, direccion]
+	- table: unidad_posiciones_historial
+		pk: [consecutivo]
+		cols: [consecutivo, id_proveedor, antena, fecha, descripcion, poslon, poslat, velocidad, angulo, direccion]
+	- table: unidad_seguimiento
+		pk: [id_unidad, id_seguimiento]
+		cols: [id_unidad, id_seguimiento, id_estatus, fecha, fecha_ingreso, fecha_modifico, id_ingreso, id_modifico, descripcion, actual, id_plaza, id_viaje, id_cliente, origen, id_fianza]
+	- table: unidad_seguimiento_estatus
+		pk: [id_estatus]
+		cols: [id_estatus, nombre, descripcion, fecha_ingreso, fecha_modifico, id_empresa, id_modifico, id_ingreso, estatus, id_rol, id_estatus_viaje]
+	- table: unidad_tipo
+		pk: [id_tipo]
+		cols: [id_tipo, nombre, nombre_busqueda, id_empresa, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, estatus, id_rol]
+	- table: unidad_tipo_rol
+		pk: [id_rol]
+		cols: [id_rol, nombre]
+	- table: unidad_tipo_rol_idioma
+		pk: [id_rol, id_idioma]
+		cols: [id_rol, id_idioma, nombre]
+	- table: uso_cfdi_regimen_fiscal
+		pk: [id]
+		cols: [id, clave_uso_cfdi, clave_regimen_fiscal]
+	- table: usoCFDI
+		pk: [id_usoCFDI]
+		cols: [id_usoCFDI, clave, descripcion, pFisica, pMoral]
+	- table: usuario
+		pk: [id_usuario]
+		cols: [id_usuario, email, id_empresa, nombre, apellido_materno, apellido_paterno, password, email2, sexo, telefono_empresa, extension_empresa, celular, puesto, estatus, nombre_busqueda, administrador, random]
+	- table: usuario_configuracion
+		pk: [id_usuario]
+		cols: [id_usuario, tema, id_sucursal, ayuda_activa, ayuda_wizard]
+	- table: usuario_grupo
+		pk: [id_usuario, id_grupo]
+		cols: [id_usuario, id_grupo]
+	- table: ventana
+		pk: [id_ventana]
+		cols: [id_ventana, nombre_archivo]
+	- table: viaje
+		pk: [id_viaje]
+		cols: [id_viaje, id_empresa, no_viaje, fecha, id_estatus, kms_viaje, id_remolque1, id_remolque2, id_unidad, id_dolly, id_plaza_origen, id_plaza_destino, id_operador, liberado, id_tipo, id_sucursal, fecha_liberado, fecha_inicio_viaje, fecha_fin_viaje, fecha_cancelado, fecha_cita, instrucciones, id_ingreso, id_ruta, fecha_ingreso, id_modifico, fecha_modifico, kms_compensacion, kms_cargado, kms_vacio, rend_esp, combustible, rend_viaje, id_liquidacion, sueldo_operador, viaje_vacio, viaje_programado, correlativo, segundo_operador, odometro_inicial, odometro_final, id_orden_compra, id_permisionario, id_liquidacion_permisionario, id_config_autotransporte, id_tipopermiso_stc, num_permiso_stc, peso_bruto_vehicular, litros_autorizados, id_estatus_viaje_custom, id_segundo_operador, volumen_final]
+	- table: viaje_estatus
+		pk: [id_estatus]
+		cols: [id_estatus, nombre, descripcion]
+	- table: viaje_estatus_idioma
+		pk: [id_estatus, id_idioma]
+		cols: [id_estatus, id_idioma, nombre, descripcion]
+	- table: viaje_programado
+		pk: [id_viaje]
+		cols: [id_viaje, id_origen, id_destino, id_cliente, fecha_carga, fecha_descarga, hora_carga, hora_descarga, referencia]
+	- table: viaje_ruta
+		pk: [id_ruta]
+		cols: [id_ruta, nombre, id_empresa, id_plaza_origen, id_plaza_destino, id_tipo, kms_ruta, estatus, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico, tiempo, litros_autorizados]
+	- table: viaje_ruta_routech
+		pk: [id_viaje]
+		cols: [id_empresa, id_viaje, id_ruta_routech, id_sesion, fecha_proceso, id_routech_estatus]
+	- table: viaje_ruta_tipo
+		pk: [id_tipo]
+		cols: [id_tipo, nombre, id_empresa, estatus, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico]
+	- table: viaje_seguimiento_control
+		pk: [id_empresa, consecutivo]
+		cols: [consecutivo, id_estatus, id_empresa, activo, estatus_anterior]
+	- table: viaje_seguimiento_estatus
+		pk: [id_viaje, id_seguimiento]
+		cols: [id_viaje, id_seguimiento, id_estatus, observaciones, fecha_estatus, id_ingreso, fecha_ingreso, id_estatus_custom, latitud, longitud]
+	- table: viaje_tipo
+		pk: [id_tipo]
+		cols: [id_tipo, nombre, id_empresa, estatus, id_ingreso, fecha_ingreso, id_modifico, fecha_modifico]
+	- table: video
+		pk: [id_video]
+		cols: [id_video, id_idioma, visiblemenu, nombre, descripcion, id_clasificacion, estatus, id_ingreso, fecha_ingreso, ruta_video, fecha_modifico, id_modifico, ruta_imagen]
+	- table: video_clasificacion
+		pk: [id_clasificacion]
+		cols: [id_clasificacion, descripcion]
+	- table: video_ventana
+		pk: [id_ventana, id_video]
+		cols: [id_ventana, id_video]
+	# PowerLISTMS schema (selected)
+	- table: PowerLISTMS.h_disponibilidad
+		pk: [id_empresa, id_unidad, fecha_ini]
+		cols: [id_empresa, id_unidad, fecha_ini, fecha_fin, dias_mes, dias_taller, dias_trabajados, entradas_a_taller, pk_disponibilidad]
+	- table: PowerLISTMS.lis_secuencia
+		pk: [number]
+		cols: [number, type, low, high]
+	- table: PowerLISTMS.matriz_config_meta_anual
+		pk: [id_empresa, anio]
+		cols: [id_empresa, anio, mes1_ingreso_viaje, ..., total_costo_mtto_x_km]  # monthly metrics truncated
+	- table: PowerLISTMS.meta_indicador
+		pk: [id_indicador]
+		cols: [id_indicador, nombre_campo, descripcion]
+	- table: PowerLISTMS.meta_tiempo
+		pk: [id_empresa, fecha]
+		cols: [id_empresa, fecha, meta_ingreso_viaje, meta_promedio_dias_cartera, meta_rendimiento_combustible, meta_viajes, meta_gastos_fijos_admin, meta_costo_mtto, meta_costo_mtto_x_km]
+
+
+
+# Formato compacto y fácil para IA: resumen de estructura de base de datos
+# - tables: nombre -> { columns: {col: default}, fks: [{col: referencia_tabla.col}] }
+# Este bloque reemplaza el contenido redundante original con una representación legible por máquinas.
+
+version: 1
+description: "Resumen condensado de tablas, valores por defecto y claves foráneas"
+
+tables:
+	anticipo:
+		columns:
+			anticipo_enviado_routech: 'N'
+			id_tipo_gasto_clickb: 0
+			id_asociado_deudor_clickb: 0
+			id_forma_pago_clickb: 0
+			id_documento_gasto_clickb: 0
+			folio_documento_gasto_clickb: ''
+			id_centro_costo_clickb: 0
+		fks:
+			- id_estatus: anticipo_estatus.id_estatus
+			- id_empresa: empresa.id_empresa
+			- id_moneda: moneda.id_moneda
+			- id_personal: personal.id_personal
+			- id_sucursal: sucursal.id_sucursal
+			- id_ingreso: usuario.id_usuario
+			- id_modifico: usuario.id_usuario
+			- id_viaje: viaje.id_viaje
+			- id_solicitud: banco_solicitud.id_solicitud
+			- id_convenio: convenio_anticipo.id_convenio
+
+	banco:
+		columns:
+			id_bancosat: 0
+			id_tipo_cobro_clickb: 0
+		fks:
+			- id_empresa: empresa.id_empresa
+			- id_modifico: usuario.id_usuario
+			- id_ingreso: usuario.id_usuario
+			- estatus: estatus_catalogo.estatus
+			- id_moneda: moneda.id_moneda
+
+	banco_movimiento:
+		columns:
+			id_iva: 0
+			id_retencion: 0
+			monto_iva: 0
+			monto_retencion: 0
+			total: 0
+			id_documento_clickb: 0
+			folio_clickb: 0
+			id_guia: 0
+			monto_ieps: 0
+			retencion_isr: 0
+		fks:
+			- id_cliente_facturaje: cliente.id_cliente
+			- id_cuenta_cliente: cuenta_cliente.id_cuenta
+			- id_solicitud: banco_solicitud.id_solicitud
+			- id_empresa: empresa.id_empresa
+			- id_ingreso: usuario.id_usuario
+			- id_modifico: usuario.id_usuario
+			- id_rol: banco_movimiento_rol.id_rol
+			- id_moneda: moneda.id_moneda
+			- id_banco: banco.id_banco
+			- id_tipo_doc: banco_movimiento_tipo_referencia.id_tipo_doc
+			- id_periodo: banco_periodo.id_periodo
+			- id_proveedor: proveedor.id_proveedor
+			- estatus: banco_movimiento_estatus.estatus
+			- id_documento: tipos_documento.id_documento
+			- id_guia: guia.id_guia
+
+	banco_movimiento_detalle:
+		columns:
+			monto_iva: 0
+			monto_retencion: 0
+			monto_total: 0
+			desglosa_iva: 'N'
+			desglosa_retencion: 'N'
+			id_retencion: 0
+		fks:
+			- id_documento: tipos_documento.id_documento
+			- id_concepto: banco_concepto.id_concepto
+			- id_movimiento: banco_movimiento.id_movimiento
+
+	cliente:
+		columns:
+			telefono: ''
+			id_forma_pago: 1
+			id_usoCFDI: 22
+			numregidtrib: ''
+			tipo_contribuyente: 0
+			id_cliente_clickb: ''
+			id_direccion_clickb: ''
+		fks:
+			- id_empresa: empresa.id_empresa
+			- id_estado: estado.id_estado
+			- id_ingreso: usuario.id_usuario
+			- id_modifico: usuario.id_usuario
+			- id_pais: pais.id_pais
+			- id_plaza: plaza.id_plaza
+			- id_rol: cliente_tipo_rol.id_rol
+			- id_metodo_pago: cliente_metodo_pago.id_metodo_pago
+			- id_forma_pago: metodo_pago.id_metodo_pago
+			- id_usoCFDI: usoCFDI.id_usoCFDI
+
+	combustible_vale:
+		columns:
+			vale_enviado_routech: 'N'
+			id_tipo_gasto_clickb: 0
+			id_asociado_deudor_clickb: 0
+			id_forma_pago_clickb: 0
+			id_documento_gasto_clickb: 0
+			folio_documento_gasto_clickb: ''
+			id_centro_costo_clickb: 0
+		fks:
+			- id_viaje: viaje.id_viaje
+			- id_combustible: combustible.id_combustible
+			- id_proveedor: proveedor.id_proveedor
+			- id_empresa: empresa.id_empresa
+			- id_estatus: combustible_estatus.id_estatus
+			- id_ingreso: usuario.id_usuario
+			- id_modifico: usuario.id_usuario
+			- id_iva: impuesto.id_impuesto
+			- id_unidad_medida_base: unidad_medida.id_unidad_medida
+			- id_unidad_medida: unidad_medida.id_unidad_medida
+			- id_unidad: unidad.id_unidad
+			- id_moneda: moneda.id_moneda
+
+	empresa:
+		columns:
+			registro_patronal: ''
+			id_num_unidades: 1
+			dia_hora_localizar: 'S/D'
+			id_tipo_carga: 1
+			id_regimenfiscal: 1
+			id_tipo_persona: 2
+			curp: ''
+			contrato: 0
+			id_razon_social: 0
+			saldo_routech: 0
+			id_usuario_aceptocontrato: 0
+			fecha_aceptocontrato: now()
+			alerta_vigencia: "now()-1"
+			cambios_movac: ''
+			codigo_ubigeo: ''
+		fks:
+			- id_num_unidades: num_unidades.id_num_unidades
+			- id_tipo_carga: tipo_carga.id_tipo_carga
+			- id_esquema: esquema.id_esquema
+			- id_tipo_persona: personal_tipo_persona.id_tipo_persona
+			- id_regimenfiscal: empresa_regimen_fiscal.id_regimenfiscal
+			- id_pais: pais.id_pais
+			- id_estado: estado.id_estado
+
+	empresa_configuracion:
+		columns:
+			cliente_pemex: 'N'
+			calcula_isr: 'N'
+			integracion_planner: 'N'
+			integracion_routech: 'N'
+			version_cfdi: '3.3'
+			integracion_portal_embarcador: 'N'
+			sincronizacion_portal_embarcador: 'N'
+			version_complemento_cp: '2.0'
+			litros_autorizados: 0
+			habilitar_ia: 'N'
+			limite_consumo_ia: 1
+		fks:
+			- id_idioma: idioma.id_idioma
+			- id_und_med_peso: unidad_medida.id_unidad_medida
+			- id_und_med_Vol: unidad_medida.id_unidad_medida
+			- id_und_med_dist: unidad_medida.id_unidad_medida
+			- id_concepto1: banco_concepto.id_concepto
+			- id_concepto2: banco_concepto.id_concepto
+			- id_banco: banco.id_banco
+			- id_empresa: empresa.id_empresa
+			- moneda: moneda.id_moneda
+			- id_concepto_liquidacion_contra: liquidacion_concepto.id_concepto
+
+	factura:
+		columns:
+			claveConfirmacion: ''
+		fks:
+			- id_detraccion: guia_detraccion.id_detraccion
+			- id_estatus: anticipo_estatus.id_estatus
+			- id_solicitud: banco_solicitud.id_solicitud
+			- id_metodo_pago: cliente_metodo_pago.id_metodo_pago
+
+	guia:
+		columns:
+			facturado: 0
+			fecha_cita: now()
+			claveConfirmacion: ''
+			id_claveprodserv_flete: 28
+			id_clave_unidad_flete: 2
+			cp_enviada_routech: 'N'
+			id_documento_clickb: 0
+			folio_clickb: ''
+			serie_clickb: ''
+			id_metodopago_sat: 0
+			id_usoCFDI: 0
+			descripcion_flete: ''
+			c_flete_por_guia: 'N'
+			id_embarcador_pe: 0
+			registro_ISTMO: 'N'
+			id_regimen_aduanero: 0
+		fks:
+			- id_cliente: cliente.id_cliente
+			- id_destinatario: cliente.id_cliente
+			- id_empresa: empresa.id_empresa
+			- id_estatus: guia_estatus.id_estatus
+			- id_factura: factura.id_factura
+			- id_ingreso: usuario.id_usuario
+			- id_iva: impuesto.id_impuesto
+			- id_modifico: usuario.id_usuario
+			- id_moneda: moneda.id_moneda
+			- id_plaza_destino: plaza.id_plaza
+			- id_plaza_emision: plaza.id_plaza
+			- id_plaza_origen: plaza.id_plaza
+			- id_viaje: viaje.id_viaje
+			- id_serie: serie_guia.id_serie
+			- id_convenio: convenio.id_convenio
+			- id_metodo_pago: cliente_metodo_pago.id_metodo_pago
+			- id_entrega_en: cliente_rec_ent.id_rec_ent
+			- id_recoger_en: cliente_rec_ent.id_rec_ent
+			- id_claveprodserv_maniobras: clave_producto_servicio.id_claveprodserv
+			- id_claveprodserv_seguro: clave_producto_servicio.id_claveprodserv
+			- id_clave_unidad_flete: unidad_clave.id_clave
+
+	liquidacion:
+		columns:
+			id_tiponomina: 1
+			fecha_inicial: now()
+			fecha_final: now()
+			numdiaspagados: 1
+			claveConfirmacion: ''
+			odometro_inicial: 0
+			odometro_final: 0
+			actualiza_unidad: 0
+			subsidio_empleo: 0
+		fks:
+			- id_empresa: empresa.id_empresa
+			- id_estatus: liquidacion_estatus.id_estatus
+			- id_personal: personal.id_personal
+			- id_unidad_motriz: unidad.id_unidad
+			- id_ingreso: usuario.id_usuario
+			- id_modifico: usuario.id_usuario
+			- id_solicitud: banco_solicitud.id_solicitud
+			- id_usuario_pago: usuario.id_usuario
+			- id_usuario_cancelo: usuario.id_usuario
+			- id_moneda: moneda.id_moneda
+			- id_tipo_adeudo: liquidacion_tipo_adeudo.id_tipo_adeudo
+			- id_sucursal: sucursal.id_sucursal
+
+	personal:
+		columns:
+			id_regimen: 0
+			id_jornada: 1
+			id_periodicidad: 0
+			claveinterbancaria_sat: ''
+			curp: ''
+			rfc: ' '
+			id_tipo_contrato: 1
+			id_tipo_empleado: 1
+			cuentabancaria: ''
+			rfcLabora: ''
+			id_bancosat: 1
+			salariodiariointegrado: 1.0
+			sindicalizado: 0
+			IMEI: ''
+			usuario_routech: ''
+			password_routech: ''
+			operador_externo: '0'
+			linea_unidad_personal: '0'
+			num_empleado: ''
+			departamento: ''
+			tipo_persona: '01'
+			correo: ''
+			id_empleado_clickb: 0
+		fks:
+			- id_empresa: empresa.id_empresa
+			- id_estatus: personal_estatus.id_estatus
+			- id_modifico: usuario.id_usuario
+			- id_ingreso: usuario.id_usuario
+			- id_categoria: personal_categoria.id_categoria
+			- id_sucursal: sucursal.id_sucursal
+			- id_tipo_contrato: personal_tipo_contrato.id_tipo_contrato
+			- id_tipo_empleado: personal_tipo_empleado.id_tipo_empleado
+			- id_bancosat: banco_bancosat.id_bancosat
+
+	unidad:
+		columns:
+			arrendamiento: ''
+			id_proveedor_gps: 0
+			antena: ''
+			ultimaposicion: ''
+			lat: 0
+			lon: 0
+			motivo_reinicio_odometro: ''
+			id_operador: 0
+			direccion_gps: ''
+			id_reinicio_odometro: 0
+			peso_bruto_vehicular: 0
+			tarjeta_circulacion: ''
+			id_centro_costo_clickb: 0
+			americana: 0
+		fks:
+			- id_empresa: empresa.id_empresa
+			- id_ingreso: usuario.id_usuario
+			- id_linea: unidad_linea.id_linea
+			- id_marca: unidad_marca.id_marca
+			- id_modifico: usuario.id_usuario
+			- id_rol: unidad_tipo_rol.id_rol
+			- id_tipo: unidad_tipo.id_tipo
+			- id_reinicio_odometro: usuario.id_usuario
+
+	viaje:
+		columns:
+			correlativo: ''
+			segundo_operador: ''
+			id_orden_compra: 0
+			peso_bruto_vehicular: 0
+			litros_autorizados: 0
+			id_estatus_viaje_custom: 0
+			id_segundo_operador: 0
+			volumen_final: 0.0
+		fks:
+			- id_liquidacion_permisionario: liquidacion_permisionario.id_liquidacion_permisionario
+			- id_permisionario: unidad_linea.id_linea
+			- id_dolly: unidad.id_unidad
+			- id_empresa: empresa.id_empresa
+			- id_estatus: viaje_estatus.id_estatus
+			- id_ingreso: usuario.id_usuario
+			- id_modifico: usuario.id_usuario
+			- id_operador: personal.id_personal
+			- id_plaza_destino: plaza.id_plaza
+			- id_plaza_origen: plaza.id_plaza
+			- id_remolque1: unidad.id_unidad
+			- id_remolque2: unidad.id_unidad
+			- id_ruta: viaje_ruta.id_ruta
+			- id_tipo: viaje_tipo.id_tipo
+			- id_unidad: unidad.id_unidad
+			- id_liquidacion: liquidacion.id_liquidacion

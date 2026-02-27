@@ -1,0 +1,23 @@
+
+LOCAL
+
+Scaffold-DbContext "server=localhost;user=sa;password=Logistica95;database=mantenimiento; TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models  -f
+
+Scaffold-DbContext "server=EQ2156\MMXIV;user=sa;password=Logistica95;database=LISTMS; TrustServerCertificate=True;command timeout=300" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models  -f
+
+
+
+REMOTE
+
+Scaffold-DbContext "server=tcp:az-sql-prd-listms.database.windows.net,1433;user=admin_prd_listms;password=J4j4P4s89*!!;database=LISTMS; TrustServerCertificate=True;command timeout=300" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models  -f
+
+
+
+Scaffold-DbContext "server=EQ2156\MMXIV;user=sa;password=Logistica95;database=MapaRiesgo; TrustServerCertificate=True;command timeout=300" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models  -f
+
+
+Alias
+
+Scaffold-DbContext "Name=ConnectionStrings:MapaRiesgoSQLServerDatabase" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models  -f
+
+

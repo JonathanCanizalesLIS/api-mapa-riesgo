@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/CartaPorte31 http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte31.xsd" xmlns:cfdi="http://www.sat.gob.mx/cfd/4" xmlns:cartaporte31="http://www.sat.gob.mx/CartaPorte31" Version="4.0" Serie="CFDICCP" Folio="020194" Fecha="2025-08-19T13:47:54" Sello="QgbdCP9hALLmf6o47IF3jrYrGRRq/fSahykXb392ayyCOlmgfs5GFB4CsMVpwUQGxE1KgIeML/wlYj41k+PQShiDbA7IzVVOuX+ugXZCS935H//qO74VnbLyRYoKH9l10cTVC7q+kt9lVD61ChIO/FTmW/jID+zsBE9o2EFt76+EEozCoga67C2EVIC3fKCpQGnWuVXGcVvpqHLzwZOWawitt1/AKVzDbGWgdEiORX6RhdH6WlYxy/H6clvANmxjq5o9FWiUlgM41CfM0unAHaet3MVqSHDKnSUYotrC1WFE8IKyRYCKuLlHXjC1c0WbWL1bbVK+nGJQOeC+uI+6zw==" Certificado="MIIGKDCCBBCgAwIBAgIUMDAwMDEwMDAwMDA3MDU2OTM4MTQwDQYJKoZIhvcNAQELBQAwggGVMTUwMwYDVQQDDCxBQyBERUwgU0VSVklDSU8gREUgQURNSU5JU1RSQUNJT04gVFJJQlVUQVJJQTEuMCwGA1UECgwlU0VSVklDSU8gREUgQURNSU5JU1RSQUNJT04gVFJJQlVUQVJJQTEaMBgGA1UECwwRU0FULUlFUyBBdXRob3JpdHkxMjAwBgkqhkiG9w0BCQEWI3NlcnZpY2lvc2FsY29udHJpYnV5ZW50ZUBzYXQuZ29iLm14MSYwJAYDVQQJDB1Bdi4gSGlkYWxnbyA3NywgQ29sLiBHdWVycmVybzEOMAwGA1UEEQwFMDYzMDAxCzAJBgNVBAYTAk1YMQ0wCwYDVQQIDARDRE1YMRMwEQYDVQQHDApDVUFVSFRFTU9DMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxXDBaBgkqhkiG9w0BCQITTXJlc3BvbnNhYmxlOiBBRE1JTklTVFJBQ0lPTiBDRU5UUkFMIERFIFNFUlZJQ0lPUyBUUklCVVRBUklPUyBBTCBDT05UUklCVVlFTlRFMB4XDTI0MDMxMTE3MzczOVoXDTI4MDMxMTE3MzczOVowgeUxKTAnBgNVBAMTIFRSQU5TUE9SVEVTIEFaQUxFTSBTIERFIFJMIERFIENWMSkwJwYDVQQpEyBUUkFOU1BPUlRFUyBBWkFMRU0gUyBERSBSTCBERSBDVjEpMCcGA1UEChMgVFJBTlNQT1JURVMgQVpBTEVNIFMgREUgUkwgREUgQ1YxJTAjBgNVBC0THFRBWjIwMDEwMkRUQSAvIFJPSUc3MTAzMjI2TTgxHjAcBgNVBAUTFSAvIFJPSUc3MTAzMjJISkNTUkwwMDEbMBkGA1UECxMSVFJBTlNQT1JURVMgQVpBTEVNMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjbjBnbvqUKimOl7+wcmYCvg4B46b3DC5TsyhdGB1edYCOUx5q6arTiRkg+gxKIH4j7gqCy57xdbFdMzV7t1PzpnBJH0tlWvVEN4OHkEDv8HN4nB04SLKHA1OZLz9y0EQJgp19KkWStJ3PmckVQCnVnZIcgEuSgNGp18TDlVYzevoAwyoxCiIoN56dP0HfOK645XzH1QVm4FnrgWZ3zzaxZcwj1TaNBiTdDZi2pwRvSD22QQXmWVq7rw27qNi3w4XW2daiXEJCcqpWZRRMPYpsdwYY8vn9zz2D1bgS3WNWgGnWa7w2s+OhjePP1lzfXowoRZUwmElmEbjX6qegsZwdQIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAgEAih1VT9VN9NJJ/uT0TRMDCFuVmEQVi9KGz11hyP4Ri+tqfSfW/s7j4WVl2q4cMru8yPdBzFSexEDJ4QVublcQORpD6pKDugAwQGlM6jvr7U29STdU47L779TqRkXQskmLp8EGArNxTRDJsRZdxYw3eX8H/fQgotyM3ykwFvWpwD82TyYMRvFsPrAIi9VLkqnLmJXjcfI3Y15gH21aAFeVDkkH/COkjOvFgE2p4nSsNyVwwfceEYeLWYIedCTqcEiZoici4O7AOaLMgn1TfGBPDEb8/ozbZd7QowKoVaPjgfvtU+/TtNg/+djbwibCc+aHULPIcQT7vZxzLQMo+3mswoD0n4coasvAbJBenhQizX6gEPN/y51aMkTFvi0XI+n3YqxgxTZGr6TSTMWk7qX+AMR7J/LEZJIBI0QRZGaKgy4BszI2r1jny+eyDzM48GHfGxvVdMYd9426yaCas9EDsIJEE4g0WsPIywj4gbhzbOxMPtZX40JARTRLCrfPPRBUA49rNM0Up5qguBQ8xBabzHrj+2MlsOyIX+vSM2pDHvJUwbhtXf6Lo9JaFn5Niex+YCKVxhAdniBr1IvaAs6x2FcKeGN5A0G+Nr+GNIiHxIfQxhwKX96X3G8rDdji4bRVoGP9nqEXYHBKYj2M1sb0wE5zYOXgBLzUni83FqzyHQI=" FormaPago="99" NoCertificado="00001000000705693814" CondicionesDePago="30" SubTotal="5590.04" Moneda="MXN" TipoCambio="1" Total="6260.85" TipoDeComprobante="I" MetodoPago="PPD" LugarExpedicion="44610" Exportacion="01">
+  <cfdi:Emisor Rfc="TAZ200102DTA" Nombre="TRANSPORTES AZALEM" RegimenFiscal="624" />
+  <cfdi:Receptor Rfc="CLO981124DN0" DomicilioFiscalReceptor="44190" UsoCFDI="G03" RegimenFiscalReceptor="601" Nombre="CAB LOGISTICS" />
+  <cfdi:Conceptos>
+    <cfdi:Concepto ClaveProdServ="78101802" Cantidad="1" ClaveUnidad="E48" Unidad="Unidad de servicio" Descripcion="Flete" ValorUnitario="5590.04" Importe="5590.04" ObjetoImp="02">
+      <cfdi:Impuestos>
+        <cfdi:Traslados>
+          <cfdi:Traslado Base="5590.04" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.160000" Importe="894.4064" />
+        </cfdi:Traslados>
+        <cfdi:Retenciones>
+          <cfdi:Retencion Base="5590.04" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.040000" Importe="223.6016" />
+        </cfdi:Retenciones>
+      </cfdi:Impuestos>
+    </cfdi:Concepto>
+  </cfdi:Conceptos>
+  <cfdi:Impuestos TotalImpuestosRetenidos="223.60" TotalImpuestosTrasladados="894.41">
+    <cfdi:Retenciones>
+      <cfdi:Retencion Impuesto="002" Importe="223.60" />
+    </cfdi:Retenciones>
+    <cfdi:Traslados>
+      <cfdi:Traslado Base="5590.04" Impuesto="002" TipoFactor="Tasa" TasaOCuota="0.160000" Importe="894.41" />
+    </cfdi:Traslados>
+  </cfdi:Impuestos>
+  <cfdi:Complemento>
+    <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd" Version="1.1" UUID="BAC57C9D-81EC-4038-B4B1-0E2885CD7471" FechaTimbrado="2025-08-19T16:47:56" RfcProvCertif="DET080304395" SelloCFD="QgbdCP9hALLmf6o47IF3jrYrGRRq/fSahykXb392ayyCOlmgfs5GFB4CsMVpwUQGxE1KgIeML/wlYj41k+PQShiDbA7IzVVOuX+ugXZCS935H//qO74VnbLyRYoKH9l10cTVC7q+kt9lVD61ChIO/FTmW/jID+zsBE9o2EFt76+EEozCoga67C2EVIC3fKCpQGnWuVXGcVvpqHLzwZOWawitt1/AKVzDbGWgdEiORX6RhdH6WlYxy/H6clvANmxjq5o9FWiUlgM41CfM0unAHaet3MVqSHDKnSUYotrC1WFE8IKyRYCKuLlHXjC1c0WbWL1bbVK+nGJQOeC+uI+6zw==" NoCertificadoSAT="00001000000705359682" SelloSAT="hwUkKinGAp4PQBHLe60UWvSkdjoqH4dBKwvg/aaxRLQwFd5rGkWTtGJ3bdQlHtRPhLDHjv4YGNJd2fLZB4z7F72G3fbuWSJOUmBiK97jDQ6z/iPgZp93gU+helDcL8iIpAIUlWjzqLmaI4SCVEP9uTbY2oiAZZ2RujPk2A3j7Ylxu14dz9a5BVUwqaqqWFM90wAyKMXzB7BNLNV1ne0ucfBAzqPuxSxs0ucoGrOYSJkg22pdzAGGo2eD0FekxfZeJhCmhUW99CXmWODUNlJO7HeU1lokbu9XJL6VPpfpAZwkjH5cfdyM18xuD3QrWb/r9FONQD/MQjbSMy9aHYd1gA==" />
+    <cartaporte31:CartaPorte Version="3.1" IdCCP="CCC273DF-FA9B-4252-8A0E-B0FD9E3E55B9" TranspInternac="No" TotalDistRec="100.00">
+      <cartaporte31:Ubicaciones>
+        <cartaporte31:Ubicacion TipoUbicacion="Origen" RFCRemitenteDestinatario="LPI830527KJ2" NombreRemitenteDestinatario="LABORATORIOS PISA" FechaHoraSalidaLlegada="2025-07-15T15:46:00">
+          <cartaporte31:Domicilio Calle="Carretera A Sn Isidro Mazatepec" NumeroExterior="7000" Colonia="1295" Localidad="11" Municipio="097" Estado="JAL" Pais="MEX" CodigoPostal="45640" />
+        </cartaporte31:Ubicacion>
+        <cartaporte31:Ubicacion TipoUbicacion="Destino" RFCRemitenteDestinatario="LPI830527KJ2" NombreRemitenteDestinatario="LABORATORIOS PISA" FechaHoraSalidaLlegada="2025-08-19T00:00:00" DistanciaRecorrida="100.00">
+          <cartaporte31:Domicilio Calle="Carretera A Sn Isidro Mazatepec" NumeroExterior="7000" Colonia="1295" Localidad="11" Municipio="097" Estado="JAL" Pais="MEX" CodigoPostal="45640" />
+        </cartaporte31:Ubicacion>
+      </cartaporte31:Ubicaciones>
+      <cartaporte31:Mercancias PesoBrutoTotal="2337.736" UnidadPeso="KGM" NumTotalMercancias="1">
+        <cartaporte31:Mercancia BienesTransp="55101500" Descripcion="INSUMOS MEDICOS" Cantidad="10365.000000" ClaveUnidad="H87" Unidad="Pieza" PesoEnKg="2337.736" />
+        <cartaporte31:Autotransporte PermSCT="TPAF01" NumPermisoSCT="1430AOC30112015021001012">
+          <cartaporte31:IdentificacionVehicular ConfigVehicular="T3S2" PlacaVM="JY52236" AnioModeloVM="2010" PesoBrutoVehicular="2.34" />
+          <cartaporte31:Seguros AseguraRespCivil="QUALITAS " PolizaRespCivil="0830419327" />
+          <cartaporte31:Remolques>
+            <cartaporte31:Remolque SubTipoRem="CTR001" Placa="08UT7T" />
+          </cartaporte31:Remolques>
+        </cartaporte31:Autotransporte>
+      </cartaporte31:Mercancias>
+      <cartaporte31:FiguraTransporte>
+        <cartaporte31:TiposFigura TipoFigura="01" RFCFigura="OAHR960818S91" NumLicencia="11R60472016" NombreFigura="RODRIGO ORDAZ HERNANDEZ" />
+      </cartaporte31:FiguraTransporte>
+    </cartaporte31:CartaPorte>
+  </cfdi:Complemento>
+</cfdi:Comprobante>

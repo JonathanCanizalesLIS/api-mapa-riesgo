@@ -1,2 +1,2 @@
-# mapa-torre-control
-Torre de control que permite visualizar la ubicación de las unidades
+# listms-backend-operaciones-servicios
+Proyecto API que provee los servicios de LIS Operaciones

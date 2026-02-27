@@ -1,0 +1,18 @@
+<cfdi:Addenda>
+        <mabe:Factura xmlns:mabe="https://recepcionfe.mabempresa.com/cfd/addenda/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://recepcionfe.mabempresa.com/cfd/addenda/v1 https://recepcionfe.mabempresa.com/cfd/addenda/v1/mabev1.xsd" version="1.0" tipoDocumento="FACTURA" folio="CCP008358" fecha="2025-05-20" ordenCompra="4502238618" referencia1="FLETE" referencia2="NA">
+  <mabe:Moneda tipoMoneda="MXN" importeConLetra="DOCE MIL CUATROCIENTOS TREINTA Y DOS PESOS 0/100 M.N." />
+  <mabe:Proveedor codigo="3000139" />
+  <mabe:Entrega plantaEntrega="S001" calle="AVENIDA PASEO DE LAS PALMAS" noExterior="215" noInterior="PISO 7" codigoPostal="11000" />
+  <mabe:Detalles>
+    <mabe:Detalle noLineaArticulo="1" codigoArticulo="1" descripcion="FLETE" unidad="SER" cantidad="1" precioSinIva="11100.00" precioConIva="12876.00" importeSinIva="11100.00" importeConIva="12876.00" />
+  </mabe:Detalles>
+  <mabe:Subtotal importe="11100.00" />
+  <mabe:Traslados>
+    <mabe:Traslado tipo="IVA" tasa="0.16" importe="1776.00" />
+  </mabe:Traslados>
+  <mabe:Retenciones>
+    <mabe:Retencion tipo="RET" tasa="0.04" importe="444.00" />
+  </mabe:Retenciones>
+  <mabe:Total importe="12432.00" />
+</mabe:Factura>
+                </cfdi:Addenda>

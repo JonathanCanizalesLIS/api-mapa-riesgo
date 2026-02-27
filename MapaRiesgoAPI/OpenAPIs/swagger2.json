@@ -1,0 +1,2532 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API",
+    "description": "API para generación de documentos PDF dinámicos.",
+    "contact": {
+      "name": "Jon Canizales",
+      "url": "https://google.com/",
+      "email": ""
+    },
+    "version": "v1.0.3"
+  },
+  "paths": {
+    "/api/Area/getAreas": {
+      "post": {
+        "tags": [
+          "Area"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AreaModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AreaModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AreaModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Cliente/GetClientes": {
+      "post": {
+        "tags": [
+          "Cliente"
+        ],
+        "parameters": [
+          {
+            "name": "idCliente",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClienteModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClienteModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClienteModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Cliente/ActualizarCliente": {
+      "post": {
+        "tags": [
+          "Cliente"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClienteModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClienteModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClienteModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Documento/DescargarDocumentoPdf": {
+      "post": {
+        "tags": [
+          "Documento"
+        ],
+        "summary": "Retorna archivo PDF o HTML deacuerdo al modelo JSON y TEMPLATE proporcionado.",
+        "parameters": [
+          {
+            "name": "soloHtml",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "templateId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "filename": {
+                    "type": "string"
+                  },
+                  "customDataObject": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "templateId": {
+                  "style": "form"
+                },
+                "filename": {
+                  "style": "form"
+                },
+                "customDataObject": {
+                  "style": "form"
+                }
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "templateId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "filename": {
+                    "type": "string"
+                  },
+                  "customDataObject": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "templateId": {
+                  "style": "form"
+                },
+                "filename": {
+                  "style": "form"
+                },
+                "customDataObject": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Documento/CargarDocumentoPdfx": {
+      "post": {
+        "tags": [
+          "Documento"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PdfObjectModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PdfObjectModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PdfObjectModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Documento/ObtenerDocumentoPdf": {
+      "get": {
+        "tags": [
+          "Documento"
+        ],
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PdfDataModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PdfDataModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PdfDataModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Documento/InsertDocumentPdf": {
+      "post": {
+        "tags": [
+          "Documento"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PdfDataModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PdfDataModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PdfDataModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Documento/UpdateDocumentPdf": {
+      "post": {
+        "tags": [
+          "Documento"
+        ],
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PdfDataModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PdfDataModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PdfDataModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Documento/remove-from-blacklist": {
+      "delete": {
+        "tags": [
+          "Documento"
+        ],
+        "summary": "",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlacklistRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlacklistRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlacklistRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Empresa/GetEmpresas": {
+      "post": {
+        "tags": [
+          "Empresa"
+        ],
+        "parameters": [
+          {
+            "name": "idEmpresa",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EmpresaModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EmpresaModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EmpresaModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Empresa/ActualizarEmpresas": {
+      "post": {
+        "tags": [
+          "Empresa"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmpresaModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmpresaModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmpresaModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Empresa/CargarLogoFileStorage": {
+      "post": {
+        "tags": [
+          "Empresa"
+        ],
+        "summary": "Inserta archivo XML en base de datos no relacional",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cfdi": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "cfdi": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Empresa/ObtenerLogoFileStorage": {
+      "get": {
+        "tags": [
+          "Empresa"
+        ],
+        "summary": "Obtener archivo del file storage a partir de su object id",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "header",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Factura/GetFacturas": {
+      "post": {
+        "tags": [
+          "Factura"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FacturaModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FacturaModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FacturaModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FacturaModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FacturaModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FacturaModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Factura/GetFactura": {
+      "post": {
+        "tags": [
+          "Factura"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FacturaModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FacturaModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FacturaModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FacturaModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FacturaModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FacturaModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Factura/CargarCfdiFileStorage": {
+      "post": {
+        "tags": [
+          "Factura"
+        ],
+        "summary": "Inserta archivo XML en base de datos no relacional",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cfdi": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "cfdi": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Factura/GetCfdiFileStorage": {
+      "get": {
+        "tags": [
+          "Factura"
+        ],
+        "summary": "Obtener archivo del file storage a partir de su object id",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "header",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Factura/ObtenerCfdiFileStorage": {
+      "get": {
+        "tags": [
+          "Factura"
+        ],
+        "summary": "Obtener archivo del file storage a partir de su object id",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "header",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Factura/SetFacturas": {
+      "post": {
+        "tags": [
+          "Factura"
+        ],
+        "summary": "Insertar factura en base de datos",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InsertarFacturaModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InsertarFacturaModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/InsertarFacturaModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Factura/GetArchivoStorage": {
+      "get": {
+        "tags": [
+          "Factura"
+        ],
+        "summary": "Obtener archivo desde Url",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "header",
+            "description": "Direccion url del archivo",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Factura/ParseXML2Json": {
+      "post": {
+        "tags": [
+          "Factura"
+        ],
+        "summary": "Carga un CFDI en forma de archivo XML y retorna un objeto JSON equivalente.\r\nSoporta versión CFDI 3.3 y CFDI 4.0",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Logo/CargarImagenFileStorage": {
+      "post": {
+        "tags": [
+          "Logo"
+        ],
+        "summary": "Inserta archivo de Imagen en base de datos no relacional",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Logo/ObtenerLogoFileStorage": {
+      "get": {
+        "tags": [
+          "Logo"
+        ],
+        "summary": "Obtener archivo de imagen del file storage a partir de su object id",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "query",
+            "description": "Id del objeto",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Logo/GetLogo": {
+      "get": {
+        "tags": [
+          "Logo"
+        ],
+        "summary": "Obtener listado de registros de logos (Imágenes)",
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "query",
+            "description": "Id del logo a consultar. Ingesar 0 o dejar vacío para aplicar filtros de búsqueda",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdClienteExterno",
+            "in": "query",
+            "description": "Id del cliente en el sistema origen. Ingresar 0 para consultar solo imágenes por defecto para todos los clientes",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdEmpresaExterno",
+            "in": "query",
+            "description": "Id de la empresa en el sistema origen. Ingresar 0 para consultar solo imágenes por defecto para todos las empresas\r\n            <br></br> 1. LISTMS\r\n            <br></br> 2. ZAM",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdSistemaOrigen",
+            "in": "query",
+            "description": "Id del sistema que consume el servicio.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Descargar",
+            "in": "query",
+            "description": "Activar para obtener el contenido (base64) del archivo.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LogoModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LogoModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LogoModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Logo/GetArchivoLogo": {
+      "get": {
+        "tags": [
+          "Logo"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Logo/SetLogo": {
+      "post": {
+        "tags": [
+          "Logo"
+        ],
+        "summary": "Insertar logo (Imágenes) en base de datos",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "Activo",
+                  "File",
+                  "IdSistemaOrigen",
+                  "Nombre"
+                ],
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "integer",
+                    "description": "Id del documento. Ingresar 0 o dejar vacío para insertar un nuevo registro",
+                    "format": "int32",
+                    "default": 0
+                  },
+                  "Nombre": {
+                    "type": "string",
+                    "description": "Nombre del la imagen"
+                  },
+                  "Descripcion": {
+                    "type": "string",
+                    "description": "Descripción del la imagen"
+                  },
+                  "IdClienteExterno": {
+                    "type": "integer",
+                    "description": "Id del cliente, tal como se tiene dado de alta en el sistema origen donde se consume este Web Service.",
+                    "format": "int32"
+                  },
+                  "IdEmpresaExterno": {
+                    "type": "integer",
+                    "description": "Id de la empresa, tal como se tiene dado de alta en el sistema origen donde se consume este Web Service.",
+                    "format": "int32"
+                  },
+                  "IdSistemaOrigen": {
+                    "type": "integer",
+                    "description": "Identificador del sistema origen donde se utilizará este registro.\r\n1. LISTMS\r\n2. ZAM",
+                    "format": "int32"
+                  },
+                  "Ancho": {
+                    "type": "integer",
+                    "description": "Anchura de la imagen",
+                    "format": "int32"
+                  },
+                  "Altura": {
+                    "type": "integer",
+                    "description": "Altura de la imagen",
+                    "format": "int32"
+                  },
+                  "Activo": {
+                    "type": "boolean",
+                    "description": "Habilitar o deshabilitar este registro. Los registros con el campo Activo = false, no serán visibles en la consulta"
+                  },
+                  "DocumentoId": {
+                    "type": "string",
+                    "description": "Identificador único del documento cargado en MongoDB. (Opcional)"
+                  },
+                  "File": {
+                    "type": "string",
+                    "description": "Archivo de imagen .jpeg o .png",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "Nombre": {
+                  "style": "form"
+                },
+                "Descripcion": {
+                  "style": "form"
+                },
+                "IdClienteExterno": {
+                  "style": "form"
+                },
+                "IdEmpresaExterno": {
+                  "style": "form"
+                },
+                "IdSistemaOrigen": {
+                  "style": "form"
+                },
+                "Ancho": {
+                  "style": "form"
+                },
+                "Altura": {
+                  "style": "form"
+                },
+                "Activo": {
+                  "style": "form"
+                },
+                "DocumentoId": {
+                  "style": "form"
+                },
+                "File": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Logo/UpdateFileLogo": {
+      "patch": {
+        "tags": [
+          "Logo"
+        ],
+        "summary": "Actualiza archivo de Imagen en base de datos no relacional y actualiza registro en BD",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "File",
+                  "Id"
+                ],
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "File": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Logo/UpdateLogo": {
+      "put": {
+        "tags": [
+          "Logo"
+        ],
+        "summary": "Sobreescribe registro de logo (Imágenes) en base de datos y remplaza el archivo de imagen en base de datos no relacional",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "Activo",
+                  "File",
+                  "IdSistemaOrigen",
+                  "Nombre"
+                ],
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "integer",
+                    "description": "Id del documento. Ingresar 0 o dejar vacío para insertar un nuevo registro",
+                    "format": "int32",
+                    "default": 0
+                  },
+                  "Nombre": {
+                    "type": "string",
+                    "description": "Nombre del la imagen"
+                  },
+                  "Descripcion": {
+                    "type": "string",
+                    "description": "Descripción del la imagen"
+                  },
+                  "IdClienteExterno": {
+                    "type": "integer",
+                    "description": "Id del cliente, tal como se tiene dado de alta en el sistema origen donde se consume este Web Service.",
+                    "format": "int32"
+                  },
+                  "IdEmpresaExterno": {
+                    "type": "integer",
+                    "description": "Id de la empresa, tal como se tiene dado de alta en el sistema origen donde se consume este Web Service.",
+                    "format": "int32"
+                  },
+                  "IdSistemaOrigen": {
+                    "type": "integer",
+                    "description": "Identificador del sistema origen donde se utilizará este registro.\r\n1. LISTMS\r\n2. ZAM",
+                    "format": "int32"
+                  },
+                  "Ancho": {
+                    "type": "integer",
+                    "description": "Anchura de la imagen",
+                    "format": "int32"
+                  },
+                  "Altura": {
+                    "type": "integer",
+                    "description": "Altura de la imagen",
+                    "format": "int32"
+                  },
+                  "Activo": {
+                    "type": "boolean",
+                    "description": "Habilitar o deshabilitar este registro. Los registros con el campo Activo = false, no serán visibles en la consulta"
+                  },
+                  "DocumentoId": {
+                    "type": "string",
+                    "description": "Identificador único del documento cargado en MongoDB. (Opcional)"
+                  },
+                  "File": {
+                    "type": "string",
+                    "description": "Archivo de imagen .jpeg o .png",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "Nombre": {
+                  "style": "form"
+                },
+                "Descripcion": {
+                  "style": "form"
+                },
+                "IdClienteExterno": {
+                  "style": "form"
+                },
+                "IdEmpresaExterno": {
+                  "style": "form"
+                },
+                "IdSistemaOrigen": {
+                  "style": "form"
+                },
+                "Ancho": {
+                  "style": "form"
+                },
+                "Altura": {
+                  "style": "form"
+                },
+                "Activo": {
+                  "style": "form"
+                },
+                "DocumentoId": {
+                  "style": "form"
+                },
+                "File": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Logo/EliminarLogo": {
+      "delete": {
+        "tags": [
+          "Logo"
+        ],
+        "summary": "Baja logica de un logo (Imágenes) base de datos",
+        "parameters": [
+          {
+            "name": "idLogo",
+            "in": "header",
+            "description": "Id del logo",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Seguridad/getUsuarioLogin": {
+      "post": {
+        "tags": [
+          "Seguridad"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Seguridad/GetSeguridadAcceso": {
+      "get": {
+        "tags": [
+          "Seguridad"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Template/CargarTemplateFileStorage": {
+      "post": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Inserta archivo XML en base de datos no relacional",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Template/GetTemplateFileStorage": {
+      "get": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Obtener archivo del file storage a partir de su object id",
+        "parameters": [
+          {
+            "name": "objectId",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Template/GetTemplate": {
+      "get": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Obtener listado de registros de diseños de impresion (Templates)",
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdClienteExterno",
+            "in": "query",
+            "description": "Id del cliente en el sistema origen. Ingresar 0 para consultar solo plantillas por defecto para todos los clientes",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdEmpresaExterno",
+            "in": "query",
+            "description": "Id de la empresa en el sistema origen. Ingresar 0 para consultar solo plantillas por defecto para todos las empresas",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "IdSistemaOrigen",
+            "in": "query",
+            "description": "Id del sistema que consume el servicio.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Descargar",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TemplateModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TemplateModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TemplateModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Template/SetTemplate": {
+      "post": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Insertar diseño de impresión (Template) en base de datos",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "Activo",
+                  "Clave",
+                  "File",
+                  "IdSistemaOrigen",
+                  "Nombre"
+                ],
+                "type": "object",
+                "properties": {
+                  "Clave": {
+                    "type": "string"
+                  },
+                  "Nombre": {
+                    "type": "string"
+                  },
+                  "Descripcion": {
+                    "type": "string"
+                  },
+                  "IdTipoDocumento": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "IdClienteExterno": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "IdEmpresaExterno": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "IdSistemaOrigen": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "DocumentoId": {
+                    "type": "string"
+                  },
+                  "Activo": {
+                    "type": "boolean"
+                  },
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Clave": {
+                  "style": "form"
+                },
+                "Nombre": {
+                  "style": "form"
+                },
+                "Descripcion": {
+                  "style": "form"
+                },
+                "IdTipoDocumento": {
+                  "style": "form"
+                },
+                "IdClienteExterno": {
+                  "style": "form"
+                },
+                "IdEmpresaExterno": {
+                  "style": "form"
+                },
+                "IdSistemaOrigen": {
+                  "style": "form"
+                },
+                "DocumentoId": {
+                  "style": "form"
+                },
+                "Activo": {
+                  "style": "form"
+                },
+                "File": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Template/UpdateFileTemplate": {
+      "patch": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Actualiza archivo de Template en base de datos no relacional y actualiza registro en BD",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "File",
+                  "Id"
+                ],
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "File": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Template/UpdateTemplate": {
+      "put": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Sobreescribe registro de template (Plantilla HTML) en base de datos y remplaza el archivo de template en base de datos no relacional",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "Activo",
+                  "File",
+                  "Id",
+                  "IdSistemaOrigen",
+                  "Nombre"
+                ],
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "Nombre": {
+                    "type": "string"
+                  },
+                  "Descripcion": {
+                    "type": "string"
+                  },
+                  "IdTipoDocumento": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "IdClienteExterno": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "IdEmpresaExterno": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "IdSistemaOrigen": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "DocumentoId": {
+                    "type": "string"
+                  },
+                  "Activo": {
+                    "type": "boolean"
+                  },
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "Nombre": {
+                  "style": "form"
+                },
+                "Descripcion": {
+                  "style": "form"
+                },
+                "IdTipoDocumento": {
+                  "style": "form"
+                },
+                "IdClienteExterno": {
+                  "style": "form"
+                },
+                "IdEmpresaExterno": {
+                  "style": "form"
+                },
+                "IdSistemaOrigen": {
+                  "style": "form"
+                },
+                "DocumentoId": {
+                  "style": "form"
+                },
+                "Activo": {
+                  "style": "form"
+                },
+                "File": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Template/EliminarTemplate": {
+      "delete": {
+        "tags": [
+          "Template"
+        ],
+        "summary": "Baja logica de un diseño de impresión (Template) en base de datos",
+        "parameters": [
+          {
+            "name": "idTemplate",
+            "in": "header",
+            "description": "Id del template",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Usuario/getUsuarios": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Usuario/getUsuario": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Usuario/setSeguridadUsuario": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeguridadUsuarioModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Usuario/GetSeguridadUsuarioAcceso": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccesoUsuario"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccesoUsuario"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccesoUsuario"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Usuario/UpdateSeguridadUsuarioAcceso": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccesoUsuario"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccesoUsuario"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccesoUsuario"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "options": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccesoUsuario": {
+        "type": "object",
+        "properties": {
+          "idAcceso": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "idUsuario": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "tipoPermiso": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "asignarAcceso": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AreaModel": {
+        "type": "object",
+        "properties": {
+          "idArea": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idRazonSocial": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BlacklistRequest": {
+        "type": "object",
+        "properties": {
+          "idEmpresa": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idMultiempresa": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "folioFactura": {
+            "type": "string",
+            "nullable": true
+          },
+          "clave": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClienteModel": {
+        "type": "object",
+        "properties": {
+          "idCliente": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idExterno": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idRazonSocial": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "razonSocial": {
+            "type": "string",
+            "nullable": true
+          },
+          "estatus": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "calle": {
+            "type": "string",
+            "nullable": true
+          },
+          "colonia": {
+            "type": "string",
+            "nullable": true
+          },
+          "municipio": {
+            "type": "string",
+            "nullable": true
+          },
+          "codigoPostal": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "rfc": {
+            "type": "string",
+            "nullable": true
+          },
+          "numero": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EmpresaModel": {
+        "type": "object",
+        "properties": {
+          "idEmpresa": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "referenciaLogo": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "rfc": {
+            "type": "string",
+            "nullable": true
+          },
+          "razonSocial": {
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "idSistemaOrigen": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idEmpresaExterna": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "calle": {
+            "type": "string",
+            "nullable": true
+          },
+          "numero": {
+            "type": "string",
+            "nullable": true
+          },
+          "colonia": {
+            "type": "string",
+            "nullable": true
+          },
+          "codigoPostal": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "municipio": {
+            "type": "string",
+            "nullable": true
+          },
+          "localidad": {
+            "type": "string",
+            "nullable": true
+          },
+          "estado": {
+            "type": "string",
+            "nullable": true
+          },
+          "pais": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FacturaModel": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "folio": {
+            "type": "string",
+            "nullable": true
+          },
+          "sistema": {
+            "type": "string",
+            "nullable": true
+          },
+          "idUsuario": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "usuario": {
+            "type": "string",
+            "nullable": true
+          },
+          "idCliente": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cliente": {
+            "type": "string",
+            "nullable": true
+          },
+          "idEmpresa": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "empresa": {
+            "type": "string",
+            "nullable": true
+          },
+          "rfcEmisor": {
+            "type": "string",
+            "nullable": true
+          },
+          "rfcReceptor": {
+            "type": "string",
+            "nullable": true
+          },
+          "documentoId": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileModel": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "fileExtension": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InsertarFacturaModel": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "nullable": true
+          },
+          "folio": {
+            "type": "string",
+            "nullable": true
+          },
+          "idUsuarioExterno": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idEmpresaExterno": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idCliente": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rfcEmisor": {
+            "type": "string",
+            "nullable": true
+          },
+          "rfcReceptor": {
+            "type": "string",
+            "nullable": true
+          },
+          "documentoId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LogoModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "idClienteExterno": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idEmpresaExterno": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idSistemaOrigen": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "documentoId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ancho": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "altura": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "activo": {
+            "type": "boolean"
+          },
+          "archivo": {
+            "$ref": "#/components/schemas/FileModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PdfDataModel": {
+        "type": "object",
+        "properties": {
+          "traceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "templateId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "customDataObject": {
+            "type": "string",
+            "nullable": true
+          },
+          "pdfObject": {
+            "$ref": "#/components/schemas/PdfObjectModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PdfObjectModel": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "filename": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SeguridadUsuarioModel": {
+        "type": "object",
+        "properties": {
+          "usuario": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "idSeguridadUsuario": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idRazonSocial": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idArea": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "contrasena": {
+            "type": "string",
+            "nullable": true
+          },
+          "estatus": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "jornadaInicio": {
+            "type": "string",
+            "nullable": true
+          },
+          "jornadaFin": {
+            "type": "string",
+            "nullable": true
+          },
+          "idEmpresa": {
+            "type": "string",
+            "nullable": true
+          },
+          "idExterno": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TemplateModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "idClienteExterno": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idEmpresaExterno": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "idSistemaOrigen": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "documentoId": {
+            "type": "string",
+            "nullable": true
+          },
+          "idTipoDocumento": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "nullable": true
+          },
+          "activo": {
+            "type": "boolean"
+          },
+          "archivo": {
+            "$ref": "#/components/schemas/FileModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
