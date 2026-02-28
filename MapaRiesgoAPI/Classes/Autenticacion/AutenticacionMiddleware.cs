@@ -36,7 +36,8 @@ namespace ElectronicDataInterchange.API.Classes.Autenticacion
                     path.Value.StartsWith("/api/Authentication/Authenticate") ||
                     path.Value.StartsWith("/api/ElectronicDataInterchange/AssignLoadTenderToRoadTrip") ||
                     path.Value.StartsWith("/api/AI/Test") ||
-                    path.Value.StartsWith("/api/UnidadesZAM/GetPosicionUnidades")
+                    path.Value.StartsWith("/api/UnidadesZAM/GetPosicionUnidades") ||
+                    path.Value.StartsWith("/api/Evidencia")
                     )
 
                     return _next(httpContext);
