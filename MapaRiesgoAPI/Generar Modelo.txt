@@ -20,4 +20,5 @@ Alias
 
 Scaffold-DbContext "Name=ConnectionStrings:MapaRiesgoSQLServerDatabase" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models  -f
 
+Scaffold-DbContext "Name=ConnectionStrings:ListmsSQLServerDatabase" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models  -f
 
