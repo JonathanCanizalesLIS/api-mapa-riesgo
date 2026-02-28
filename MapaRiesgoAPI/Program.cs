@@ -1,5 +1,6 @@
 using ElectronicDataInterchange.API.Classes.Autenticacion;
 using ElectronicDataInterchange.API.Handlers;
+using LISTMS.DL.Models;
 using MapaRiesgo.DL.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -111,6 +112,11 @@ builder.Services.AddDbContext<MapaRiesgoContext>(options => {
     }
 );
 
+builder.Services.AddDbContext<ListmsContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ListmsSQLServerDatabase"));
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+}
+);
 
 builder.Services.AddCors(policyBuilder =>
     policyBuilder.AddDefaultPolicy(policy =>

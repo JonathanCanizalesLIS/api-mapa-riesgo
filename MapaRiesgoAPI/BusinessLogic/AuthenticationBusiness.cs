@@ -1,6 +1,7 @@
 ﻿using ElectronicDataInterchange.API.Classes;
 using ElectronicDataInterchange.API.Classes.Autenticacion;
 using ElectronicDataInterchange.API.Interfaces;
+using LISTMS.DL.Models;
 using MapaRiesgo.DL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
