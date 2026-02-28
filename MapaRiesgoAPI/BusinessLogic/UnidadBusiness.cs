@@ -37,8 +37,6 @@ namespace MapaRiesgo.API.BusinessLogic
         {
             var unidadesListms = _listmsContext.Unidads
                 .Where(u => u.Lat != 0m && u.Lon != 0m)
-                .OrderByDescending(u => u.IdUnidad)
-                .Take(2)
                 .ToList();
 
             if (!unidadesListms.Any())
