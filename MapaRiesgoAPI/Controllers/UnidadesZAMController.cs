@@ -15,16 +15,10 @@ namespace MapaRiesgo.API.Controllers
     [Route("api/[controller]")]
     public class UnidadesZAMController : ControllerBase
     {
-        private readonly ILogger<UnidadesZAMController> _logger;
-        private readonly IConfiguration _configuration;
-        private readonly MapaRiesgoContext _mapaRiesgoContext;
         private readonly EmpresasBDConexionBusiness _empresasBdConexionBusiness;
         private readonly UnidadZamBusiness _unidadZamBusiness;
-        public UnidadesZAMController(ILogger<UnidadesZAMController> logger,IConfiguration configuration, 
-            EmpresasBDConexionBusiness empresasBdConexionBusiness, UnidadZamBusiness unidadZamBusiness)
+        public UnidadesZAMController(EmpresasBDConexionBusiness empresasBdConexionBusiness, UnidadZamBusiness unidadZamBusiness)
         {
-            _logger = logger;
-            _configuration = configuration;
             _empresasBdConexionBusiness = empresasBdConexionBusiness;
             _unidadZamBusiness = unidadZamBusiness;
         }
@@ -55,9 +49,11 @@ namespace MapaRiesgo.API.Controllers
                 string conexion = "";
                 List<UnidadesZam> posicionesZam = new List<UnidadesZam>();
                 var response = _empresasBdConexionBusiness.GetAll();
-                if (response.Status == 200) { 
+                if (response.Status == 200)
+                {
                     //leer las conexiones y consultar las unidades
-                    foreach (var item in response.Data) {
+                    foreach (var item in response.Data)
+                    {
                         conexion = GeneraConexion(item);
 
                         //Consultar unidades Zam
@@ -76,7 +72,7 @@ namespace MapaRiesgo.API.Controllers
             }
             catch (Exception ex)
             {
-                return JsonConvert.SerializeObject(new 
+                return JsonConvert.SerializeObject(new
                 {
                     Id = 0,
                     Status = StatusCodes.Status500InternalServerError,
@@ -88,3 +84,4 @@ namespace MapaRiesgo.API.Controllers
 
     }
 }
+

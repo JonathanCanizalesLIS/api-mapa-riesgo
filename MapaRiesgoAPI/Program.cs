@@ -101,7 +101,7 @@ builder.Services.AddDbContext<ListmsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ListmsSQLServerDatabase"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
-
+builder.Services.AddControllers();
 builder.Services.AddScoped<AuthenticationBusiness>();
 builder.Services.AddScoped<UnidadBusiness>();
 

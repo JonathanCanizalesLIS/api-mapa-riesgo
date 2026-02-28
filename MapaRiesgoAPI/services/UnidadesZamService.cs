@@ -1,8 +1,10 @@
-﻿using MapaRiesgo.API.Services;
+﻿using MapaRiesgo.API.BusinessLogic;
+using MapaRiesgo.API.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MapaRiesgo.API.services
 {
-    public class UnidadesZamService: BackgroundService
+    public class UnidadesZamService : BackgroundService
     {
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly ILogger<UnidadesZamService> _logger;
@@ -23,10 +25,11 @@ namespace MapaRiesgo.API.services
                 {
                     using (var scope = _scopeFactory.CreateScope())
                     {
-                        var unidadZam = scope.ServiceProvider
-                            .GetRequiredService<MapaRiesgo.API.Controllers.UnidadesZAMController>();
+                        var myService = scope.ServiceProvider.GetRequiredService<UnidadZamBusiness>();
+                        var myService2 = scope.ServiceProvider.GetRequiredService<EmpresasBDConexionBusiness>();
+                        var controller = new Controllers.UnidadesZAMController(myService2, myService);
 
-                        var response = unidadZam.GetPosicionUnidades();
+                        var response = controller.GetPosicionUnidades(); ;
 
                         _logger.LogInformation($"Sincronización ejecutada");
                     }
@@ -36,7 +39,7 @@ namespace MapaRiesgo.API.services
                     _logger.LogError(ex, "Error en sincronización automática");
                 }
 
-                await Task.Delay(TimeSpan.FromMinutes(10), stoppingToken);
+                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
             }
         }
     }
