@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Net.WebSockets;
+using System.Text;
 
 namespace MapaRiesgo.API.WebSockets
 {
@@ -27,21 +28,20 @@ namespace MapaRiesgo.API.WebSockets
             return socket;
         }
 
-        public async Task SendMessageAsync(int idDestinatario, string message)
+        public async Task SendMessageToAllAsync(int idRemitente, string message)
         {
-            var socket = GetSocket(idDestinatario);
+            var buffer = Encoding.UTF8.GetBytes(message);
 
-            if (socket == null || socket.State != WebSocketState.Open)
-                return;
-            var buffer = System.Text.Encoding.UTF8.GetBytes(message);
-            await socket.SendAsync(
-                new ArraySegment<byte>(buffer),
-                WebSocketMessageType.Text, true, CancellationToken.None);
+            foreach (var (idUsuario, socket) in _sockets)
+            {
+
+                if (idUsuario == idRemitente) continue;
+
+                if (socket.State == WebSocketState.Open)
+                    await socket.SendAsync(
+                        new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+            }
         }
 
-        public bool IsConnected(int idUsuario) {
-            var socket = GetSocket(idUsuario);
-            return socket != null && socket.State == WebSocketState.Open;
-        }
     }
 }

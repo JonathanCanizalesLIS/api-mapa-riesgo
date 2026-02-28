@@ -2,7 +2,6 @@
 using ElectronicDataInterchange.API.Constants;
 using LISTMS.DL.Models;
 using MapaRiesgo.DL.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace MapaRiesgo.API.BusinessLogic
 {
