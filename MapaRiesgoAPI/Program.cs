@@ -107,6 +107,8 @@ builder.Services.AddDbContext<ListmsContext>(options =>
 );
 builder.Services.AddScoped<AuthenticationBusiness>();
 builder.Services.AddScoped<UnidadBusiness>();
+builder.Services.AddScoped<EmpresasBDConexionBusiness>();
+builder.Services.AddScoped<UnidadZamBusiness>();
 
 builder.Services.AddHostedService<UnidadSyncService>();
 

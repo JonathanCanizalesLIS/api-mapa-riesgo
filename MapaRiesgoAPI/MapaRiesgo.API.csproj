@@ -132,6 +132,7 @@
   <ItemGroup>
     <ProjectReference Include="..\LISTMS.DL\LISTMS.DL.csproj" />
     <ProjectReference Include="..\MapaRiesgo.DL\MapaRiesgo.DL.csproj" />
+    <ProjectReference Include="..\ZAM.DL\ZAM.DL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
