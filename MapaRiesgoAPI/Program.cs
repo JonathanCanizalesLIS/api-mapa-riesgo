@@ -108,9 +108,10 @@ builder.Services.AddScoped<UnidadBusiness>();
 builder.Services.AddScoped<EmpresasBDConexionBusiness>();
 builder.Services.AddScoped<UnidadZamBusiness>();
 
+
 builder.Services.AddSingleton<WebSocketConnectionManager>();
 builder.Services.AddSingleton<ChatWebSocketHandler>();
-builder.Services.AddHostedService<UnidadSyncService>();
+
 
 builder.Services.AddCors(policyBuilder =>
     policyBuilder.AddDefaultPolicy(policy =>

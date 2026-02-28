@@ -1,6 +1,7 @@
 ﻿using ElectronicDataInterchange.API.Classes;
 using LISTMS.DL.Models;
 using MapaRiesgo.API.BusinessLogic;
+using MapaRiesgo.API.Classes.Modelo;
 using MapaRiesgo.DL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace MapaRiesgo.API.Controllers
 
         [Route("[action]")]
         [HttpGet]
-        public Response<List<MapaRiesgo.DL.Models.Unidad>> GetAll()
+        public Response<List<Classes.Modelo.Unidad>> GetAll()
         {
             try {
                 return _unidadBusiness.GetAll();
@@ -41,7 +42,7 @@ namespace MapaRiesgo.API.Controllers
             catch(Exception ex) {
                 _logger.LogError(ex, "Error al obtener unidades");
 
-                return new Response<List<MapaRiesgo.DL.Models.Unidad>>
+                return new Response<List<Classes.Modelo.Unidad>>
                 {
                     Id = 0,
                     Status = StatusCodes.Status500InternalServerError,
@@ -70,5 +71,20 @@ namespace MapaRiesgo.API.Controllers
                 };
             }
         }
+
+
+        [Route("[action]")]
+        [HttpGet]
+        [Authorize]
+        public Response<RespuestaEventos> ObtenerEventos()
+        {
+            using (_mapaRiesgoContext)
+            {
+                return _unidadBusiness.ObtenerEventos();
+            }
+        }
+
+
+
     }
 }
