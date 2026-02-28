@@ -38,9 +38,9 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Electronic Data Interchange API",
+        Title = "Mapa de Riesgo API",
         Version = "v1",
-        Description = "EDI project API ",
+        Description = "Mapa de Riesgo API ",
     });
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
