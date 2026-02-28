@@ -55,7 +55,7 @@ namespace MapaRiesgo.API.BusinessLogic
                 .Select(g => g.First())
                 .ToList();
 
-            var idsExternos = unidadesUnicas.Select(x => x.IdUnidad).ToList();
+            var idsExternos = unidadesUnicas.Select(x => x.IdUnidad.ToString()).ToList();
 
             var existentes = _mapaRiesgoContext.Unidads
                 .Where(u => idsExternos.Contains(u.IdUnidad))
@@ -63,13 +63,13 @@ namespace MapaRiesgo.API.BusinessLogic
 
             foreach (var b in unidadesUnicas)
             {
-                var existente = existentes.FirstOrDefault(x => x.IdUnidad == b.IdUnidad);
+                var existente = existentes.FirstOrDefault(x => x.IdUnidad == b.IdUnidad.ToString());
 
                 if (existente == null)
                 {
                     _mapaRiesgoContext.Unidads.Add(new MapaRiesgo.DL.Models.Unidad
                     {
-                        IdUnidad = b.IdUnidad,
+                        IdUnidad = b.IdUnidad.ToString(),
                         IdSistemaOrigen = (int)SistemaEnumerable.Sistema.LISTMS,
                         Unidad1 = b.NumUnidad,
                         Latitud = b.Lat,
