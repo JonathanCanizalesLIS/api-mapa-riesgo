@@ -1,3 +1,5 @@
+using MapaRiesgo.API.BusinessLogic;
+using MapaRiesgo.API.Services;
 using ElectronicDataInterchange.API.Classes.Autenticacion;
 using ElectronicDataInterchange.API.Handlers;
 using LISTMS.DL.Models;
@@ -9,14 +11,12 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
-
+using ElectronicDataInterchange.BusinessLogic;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-
-
 
 //Timeout options
 builder.WebHost.ConfigureKestrel(options =>
@@ -24,19 +24,13 @@ builder.WebHost.ConfigureKestrel(options =>
     options.Limits.RequestHeadersTimeout = TimeSpan.FromSeconds(2);
 });
 
-
 // Add services to the container.
 builder.Services.AddControllers(options => options.EnableEndpointRouting = false)
                 .AddNewtonsoftJson(options =>
                      options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
 
-
 builder.Services.AddTransient<GenericHelper>();
-/*
-Log.Logger = new LoggerConfiguration().CreateBootstrapLogger();
-builder.Host.UseSerilog(((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration)));
-*/
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -98,39 +92,35 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddMvc();
 
-
-
-//Se configura la cadena de conexión a SQL Server
-//builder.Services.AddDbContext<MantenimientoContext>(options => { 
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("MantenimientoSQLServerDatabase"));
-//    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-//    });
-
-builder.Services.AddDbContext<MapaRiesgoContext>(options => {
+builder.Services.AddDbContext<MapaRiesgoContext>(options =>
+{
     options.UseSqlServer(builder.Configuration.GetConnectionString("MapaRiesgoSQLServerDatabase"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-    }
+}
 );
 
-builder.Services.AddDbContext<ListmsContext>(options => {
+builder.Services.AddDbContext<ListmsContext>(options =>
+{
     options.UseSqlServer(builder.Configuration.GetConnectionString("ListmsSQLServerDatabase"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 }
 );
+builder.Services.AddScoped<AuthenticationBusiness>();
+builder.Services.AddScoped<UnidadBusiness>();
+
+builder.Services.AddHostedService<UnidadSyncService>();
 
 builder.Services.AddCors(policyBuilder =>
     policyBuilder.AddDefaultPolicy(policy =>
         policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader().AllowAnyMethod())
 );
 
-
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 IConfiguration configuration = new ConfigurationBuilder()
                             .AddJsonFile($"appsettings.{app.Environment.EnvironmentName}.json")
                             .Build();
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Testing" || app.Environment.EnvironmentName == "Production")
@@ -142,6 +132,10 @@ if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Testi
 AppContext.SetSwitch("Switch.System.Xml.AllowDefaultResolver", true);
 
 app.UseHttpsRedirection();
+app.UseWebSockets(new WebSocketOptions
+{
+    KeepAliveInterval = TimeSpan.FromMinutes(2)
+});
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();

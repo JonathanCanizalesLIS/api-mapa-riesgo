@@ -9,43 +9,44 @@ namespace ElectronicDataInterchange.API.Classes
         public IConfiguration Configuration { get; set; }
         public Session Session { get; set; }
         public MapaRiesgoContext MapaRiesgoContext;
-        public HttpContext HttpContext;
+        protected readonly IHttpContextAccessor _httpContextAccessor;
 
 
 
-        public Base(IConfiguration configuration, HttpContext httpContext, MapaRiesgoContext mapaRiesgoContext)
+        public Base(IConfiguration configuration, IHttpContextAccessor httpContextAccessor, MapaRiesgoContext mapaRiesgoContext)
         {
             Configuration = configuration;
 
-            HttpContext = httpContext;
+            _httpContextAccessor = httpContextAccessor;
 
             MapaRiesgoContext = mapaRiesgoContext;
             mapaRiesgoContext.Database.SetConnectionString(Configuration.GetConnectionString("MapaRiesgoSQLServerDatabase"));
 
-            Session = LoadSessionVariables(httpContext);
+            Session = LoadSessionVariables();
 
         }
 
-        private Session LoadSessionVariables(HttpContext httpContext)
+        private Session LoadSessionVariables()
         {
-            //Si no cuenta con token de autenticación, devuelve una sesión vacía
-            if (!httpContext.Request.Headers.Where(request => request.Key == "Authorization").Any())
+
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
                 return new Session();
 
+            if (!httpContext.Request.Headers.ContainsKey("Authorization"))
+                return new Session();
 
             int idEmpresa = 0;
-            int.TryParse(httpContext.Request.Headers.Where(request => request.Key == "IdEmpresa").First().Value, out idEmpresa);
+            int.TryParse(httpContext.Request.Headers["IdEmpresa"], out idEmpresa);
 
             int idEdiUsuario = 0;
-            int.TryParse(httpContext.Request.Headers.Where(request => request.Key == "IdEdiUsuario").First().Value, out idEdiUsuario);
+            int.TryParse(httpContext.Request.Headers["IdEdiUsuario"], out idEdiUsuario);
 
-            Session = new Session
+            return new Session
             {
                 IdEmpresa = idEmpresa,
-                IdEdiUsuario = idEdiUsuario,
+                IdEdiUsuario = idEdiUsuario
             };
-
-            return Session;
         }
 
 

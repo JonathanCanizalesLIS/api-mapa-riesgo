@@ -17,11 +17,14 @@ public partial class MapaRiesgoContext : DbContext
 
     public virtual DbSet<Sesion> Sesions { get; set; }
 
+    public virtual DbSet<SistemaOrigen> SistemaOrigens { get; set; }
+
+    public virtual DbSet<Unidad> Unidads { get; set; }
+
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=EQ2156\\MMXIV;user=sa;password=Logistica95;database=MapaRiesgo; TrustServerCertificate=True;command timeout=300");
+        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:MapaRiesgoSQLServerDatabase");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -55,6 +58,43 @@ public partial class MapaRiesgoContext : DbContext
                 .HasConstraintName("fk_sesion_sesion");
         });
 
+        modelBuilder.Entity<SistemaOrigen>(entity =>
+        {
+            entity.HasKey(e => e.IdSistemaOrigen).HasName("pk_Tbl");
+
+            entity.ToTable("sistema_origen");
+
+            entity.Property(e => e.IdSistemaOrigen)
+                .ValueGeneratedNever()
+                .HasColumnName("id_sistema_origen");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(60)
+                .IsUnicode(false)
+                .HasColumnName("nombre");
+        });
+
+        modelBuilder.Entity<Unidad>(entity =>
+        {
+            entity.HasKey(e => e.IdGeoposicion).HasName("PK__unidad__C97F4B4C9D9F70A9");
+
+            entity.ToTable("unidad");
+
+            entity.Property(e => e.IdGeoposicion).HasColumnName("id_geoposicion");
+            entity.Property(e => e.IdEmpresa).HasColumnName("id_empresa");
+            entity.Property(e => e.IdOperador).HasColumnName("id_operador");
+            entity.Property(e => e.IdSistemaOrigen).HasColumnName("id_sistema_origen");
+            entity.Property(e => e.IdUnidad).HasColumnName("id_unidad");
+            entity.Property(e => e.Latitud)
+                .HasColumnType("decimal(18, 6)")
+                .HasColumnName("latitud");
+            entity.Property(e => e.Longitud)
+                .HasColumnType("decimal(18, 6)")
+                .HasColumnName("longitud");
+            entity.Property(e => e.Unidad1)
+                .HasMaxLength(50)
+                .HasColumnName("unidad1");
+        });
+
         modelBuilder.Entity<Usuario>(entity =>
         {
             entity.HasKey(e => e.IdUsuario).HasName("pk_edi_usuario");
@@ -72,6 +112,7 @@ public partial class MapaRiesgoContext : DbContext
                 .HasColumnName("estatus");
             entity.Property(e => e.IdCliente).HasColumnName("id_cliente");
             entity.Property(e => e.IdEmpresa).HasColumnName("id_empresa");
+            entity.Property(e => e.IdSistemaOrigen).HasColumnName("id_sistema_origen");
             entity.Property(e => e.Password)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -80,6 +121,11 @@ public partial class MapaRiesgoContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("username");
+
+            entity.HasOne(d => d.IdSistemaOrigenNavigation).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.IdSistemaOrigen)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_usuario_usuario");
         });
 
         OnModelCreatingPartial(modelBuilder);

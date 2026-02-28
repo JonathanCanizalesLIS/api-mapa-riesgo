@@ -17,12 +17,18 @@ namespace ElectronicDataInterchange.Controllers
         private readonly ILogger<AuthenticationController> _logger;
         private readonly IConfiguration _configuration;
         private readonly MapaRiesgoContext _mapaRiesgoContext;
+        private readonly AuthenticationBusiness _authenticationBusiness;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger, IConfiguration configuration, MapaRiesgoContext mapaRiesgoContext)
+        public AuthenticationController(
+        ILogger<AuthenticationController> logger,
+        IConfiguration configuration,
+        MapaRiesgoContext mapaRiesgoContext,
+        AuthenticationBusiness authenticationBusiness)
         {
             _logger = logger;
             _configuration = configuration;
             _mapaRiesgoContext = mapaRiesgoContext;
+            _authenticationBusiness = authenticationBusiness;
         }
 
 
@@ -31,17 +37,12 @@ namespace ElectronicDataInterchange.Controllers
         [HttpPost]
         public Response<SesionConsulta> Authenticate(string username, string password)
         {
-            Response<SesionConsulta> response = new Response<SesionConsulta>();
+            var response = _authenticationBusiness.Authenticate(username, password);
 
-            using (var listmsContext = _mapaRiesgoContext)
-            {
-                response = new AuthenticationBusiness(listmsContext, _configuration, HttpContext).Authenticate(username, password);
+            if (response.Status != 200)
+                HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
-                if (response.Status != 200)
-                    this.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-
-                return response;
-            }
+            return response;
         }
 
 
@@ -93,6 +94,6 @@ namespace ElectronicDataInterchange.Controllers
         //        return new AnticipoBusiness(listmsContext, _configuration, this.HttpContext).CancelarAnticipo(idAnticipo);
         //}
 
- 
+
     }
 }

@@ -19,5 +19,9 @@ public partial class Usuario
 
     public bool Encripcion { get; set; }
 
+    public int IdSistemaOrigen { get; set; }
+
+    public virtual SistemaOrigen IdSistemaOrigenNavigation { get; set; } = null!;
+
     public virtual ICollection<Sesion> Sesions { get; set; } = new List<Sesion>();
 }
