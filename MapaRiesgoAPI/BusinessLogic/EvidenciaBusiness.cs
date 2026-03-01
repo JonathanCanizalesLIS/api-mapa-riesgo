@@ -25,31 +25,6 @@ namespace MapaRiesgo.API.BusinessLogic
         {
             try
             {
-                // Validaciones
-                if (evidencia == null)
-                {
-                    return new Response<EvidenciaGuardarResponse>
-                    {
-                        Id = 0,
-                        Status = StatusCodes.Status400BadRequest,
-                        Message = "Los datos de evidencia son requeridos",
-                        HasError = true,
-                        Data = null
-                    };
-                }
-
-                if (string.IsNullOrWhiteSpace(evidencia.NombreFoto))
-                {
-                    return new Response<EvidenciaGuardarResponse>
-                    {
-                        Id = 0,
-                        Status = StatusCodes.Status400BadRequest,
-                        Message = "El nombre de la foto es requerido",
-                        HasError = true,
-                        Data = null
-                    };
-                }
-
                 // Crear el evento
                 var evento = new Evento
                 {
@@ -106,31 +81,6 @@ namespace MapaRiesgo.API.BusinessLogic
         {
             try
             {
-                // Validaciones
-                if (evidencia == null)
-                {
-                    return new Response<EvidenciaRequest>
-                    {
-                        Id = 0,
-                        Status = StatusCodes.Status400BadRequest,
-                        Message = "Los datos de evidencia son requeridos",
-                        HasError = true,
-                        Data = null
-                    };
-                }
-
-                if (string.IsNullOrWhiteSpace(evidencia.NombreFoto))
-                {
-                    return new Response<EvidenciaRequest>
-                    {
-                        Id = 0,
-                        Status = StatusCodes.Status400BadRequest,
-                        Message = "El nombre de la foto es requerido",
-                        HasError = true,
-                        Data = null
-                    };
-                }
-
                 // Crear el evento
                 var evento = new Evento
                 {
