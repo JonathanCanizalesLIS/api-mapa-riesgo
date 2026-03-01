@@ -1,5 +1,6 @@
 using ElectronicDataInterchange.API.Classes;
 using ElectronicDataInterchange.API.Classes.Modelo;
+using MapaRiesgo.API.BusinessLogic;
 using MapaRiesgo.DL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,57 +15,46 @@ namespace ElectronicDataInterchange.Controllers
         private readonly ILogger<EvidenciaController> _logger;
         private readonly IConfiguration _configuration;
         private readonly MapaRiesgoContext _mapaRiesgoContext;
+        private readonly EvidenciaBusiness _evidenciaBusiness;
 
-        public EvidenciaController(ILogger<EvidenciaController> logger, IConfiguration configuration, MapaRiesgoContext mapaRiesgoContext)
+        public EvidenciaController(
+            ILogger<EvidenciaController> logger, 
+            IConfiguration configuration, 
+            MapaRiesgoContext mapaRiesgoContext,
+            EvidenciaBusiness evidenciaBusiness)
         {
             _logger = logger;
             _configuration = configuration;
             _mapaRiesgoContext = mapaRiesgoContext;
+            _evidenciaBusiness = evidenciaBusiness;
         }
 
         /// <summary>
-        /// Recibe datos de evidencia
+        /// Recibe datos de evidencia y los guarda en la tabla evento
         /// </summary>
         /// <param name="evidencia">Datos de la evidencia</param>
         /// <returns>Respuesta con el resultado del proceso</returns>
         [AllowAnonymous]
         [HttpPost]
         [Route("[action]")]
-        public Response<EvidenciaRequest> RecibirEvidencia([FromBody] EvidenciaRequest evidencia)
+        public Response<EvidenciaGuardarResponse> RecibirEvidencia([FromBody] EvidenciaGuardarRequest evidencia)
         {
             try
             {
-                if (evidencia == null)
-                {
-                    return new Response<EvidenciaRequest>
-                    {
-                        Id = 0,
-                        Status = StatusCodes.Status400BadRequest,
-                        Message = "Los datos de evidencia son requeridos",
-                        HasError = true,
-                        Data = null
-                    };
-                }
+                _logger.LogInformation($"Recibiendo evidencia: {evidencia?.NombreFoto}");
 
-                // Aquí puedes agregar la lógica para procesar y guardar la evidencia
-                // Por ejemplo: guardar en base de datos, validar datos, etc.
+                var response = _evidenciaBusiness.GuardarEvidencia(evidencia);
 
-                _logger.LogInformation($"Evidencia recibida: {evidencia.NombreFoto}, IdEvidencia: {evidencia.IdEvidencia}");
+                if (response.HasError)
+                    HttpContext.Response.StatusCode = response.Status;
 
-                return new Response<EvidenciaRequest>
-                {
-                    Id = evidencia.IdEvidencia,
-                    Status = StatusCodes.Status200OK,
-                    Message = "Evidencia recibida exitosamente",
-                    HasError = false,
-                    Data = evidencia
-                };
+                return response;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error al procesar la evidencia");
+                _logger.LogError(ex, "Error al procesar la evidencia en el controlador");
                 
-                return new Response<EvidenciaRequest>
+                return new Response<EvidenciaGuardarResponse>
                 {
                     Id = 0,
                     Status = StatusCodes.Status500InternalServerError,
@@ -87,36 +77,12 @@ namespace ElectronicDataInterchange.Controllers
         {
             try
             {
-                // Aquí puedes agregar la lógica para obtener la evidencia desde la base de datos
-                // Por ahora retorna un ejemplo
+                var response = _evidenciaBusiness.ObtenerEvidenciaPorId(idEvidencia);
 
-                if (idEvidencia <= 0)
-                {
-                    return new Response<EvidenciaRequest>
-                    {
-                        Id = 0,
-                        Status = StatusCodes.Status400BadRequest,
-                        Message = "ID de evidencia inválido",
-                        HasError = true,
-                        Data = null
-                    };
-                }
+                if (response.HasError)
+                    HttpContext.Response.StatusCode = response.Status;
 
-                // Simulación de búsqueda - reemplazar con lógica real
-                var evidencia = new EvidenciaRequest
-                {
-                    IdEvidencia = idEvidencia,
-                    // Otros campos se llenarían desde la base de datos
-                };
-
-                return new Response<EvidenciaRequest>
-                {
-                    Id = idEvidencia,
-                    Status = StatusCodes.Status200OK,
-                    Message = "Evidencia obtenida exitosamente",
-                    HasError = false,
-                    Data = evidencia
-                };
+                return response;
             }
             catch (Exception ex)
             {
@@ -134,44 +100,27 @@ namespace ElectronicDataInterchange.Controllers
         }
 
         /// <summary>
-        /// Obtiene una lista de evidencias por ID de pedido
+        /// Obtiene una lista de evidencias por ID de empresa/razón social
         /// </summary>
-        /// <param name="idPedido">ID del pedido</param>
+        /// <param name="idEmpresa">ID de la empresa</param>
         /// <returns>Lista de evidencias</returns>
         [AllowAnonymous]
         [HttpGet]
-        [Route("[action]/{idPedido}")]
-        public Response<List<EvidenciaRequest>> ObtenerEvidenciasPorPedido(int idPedido)
+        [Route("[action]/{idEmpresa}")]
+        public Response<List<EvidenciaRequest>> ObtenerEvidenciasPorEmpresa(int idEmpresa)
         {
             try
             {
-                if (idPedido <= 0)
-                {
-                    return new Response<List<EvidenciaRequest>>
-                    {
-                        Id = 0,
-                        Status = StatusCodes.Status400BadRequest,
-                        Message = "ID de pedido inválido",
-                        HasError = true,
-                        Data = null
-                    };
-                }
+                var response = _evidenciaBusiness.ObtenerEvidenciasPorEmpresa(idEmpresa);
 
-                // Aquí puedes agregar la lógica para obtener las evidencias desde la base de datos
-                var evidencias = new List<EvidenciaRequest>();
+                if (response.HasError)
+                    HttpContext.Response.StatusCode = response.Status;
 
-                return new Response<List<EvidenciaRequest>>
-                {
-                    Id = idPedido,
-                    Status = StatusCodes.Status200OK,
-                    Message = $"Se encontraron {evidencias.Count} evidencias",
-                    HasError = false,
-                    Data = evidencias
-                };
+                return response;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error al obtener evidencias del pedido {idPedido}");
+                _logger.LogError(ex, $"Error al obtener evidencias de la empresa {idEmpresa}");
                 
                 return new Response<List<EvidenciaRequest>>
                 {

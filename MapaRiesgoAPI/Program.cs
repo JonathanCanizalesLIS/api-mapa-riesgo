@@ -104,6 +104,7 @@ builder.Services.AddDbContext<ListmsContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddScoped<AuthenticationBusiness>();
 builder.Services.AddScoped<UnidadBusiness>();
+builder.Services.AddScoped<EvidenciaBusiness>();
 
 builder.Services.AddScoped<EmpresasBDConexionBusiness>();
 builder.Services.AddScoped<UnidadZamBusiness>();

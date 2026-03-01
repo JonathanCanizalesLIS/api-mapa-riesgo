@@ -74,7 +74,9 @@ public partial class MapaRiesgoContext : DbContext
 
             entity.ToTable("evento");
 
-            entity.Property(e => e.IdEvento).HasColumnName("id_evento");
+            entity.Property(e => e.IdEvento)
+                .HasColumnName("id_evento")
+                .ValueGeneratedOnAdd();
             entity.Property(e => e.Evidencia)
                 .HasMaxLength(300)
                 .IsUnicode(false)

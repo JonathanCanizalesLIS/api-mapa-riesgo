@@ -13,8 +13,8 @@ namespace ElectronicDataInterchange.API.Classes.Modelo
         [JsonProperty("extencionFoto")]
         public string ExtencionFoto { get; set; }
 
-        [JsonProperty("idRazonSocial")]
-        public int IdRazonSocial { get; set; }
+        [JsonProperty("idEmpresa")]
+        public int IdEmpresa { get; set; }
 
         [JsonProperty("realizoAlta")]
         public int RealizoAlta { get; set; }
