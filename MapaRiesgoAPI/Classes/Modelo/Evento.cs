@@ -15,7 +15,7 @@
         public DateTime Fecha { get; set; }
 
         public int IdSistemaOrigen { get; set; }
-
+        public int Radio { get; set; }
         public int IdEmpresa { get; set; }
         public string Color { get; set; }
 

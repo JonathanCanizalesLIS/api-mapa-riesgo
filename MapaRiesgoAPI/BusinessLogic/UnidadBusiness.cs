@@ -113,7 +113,7 @@ namespace MapaRiesgo.API.BusinessLogic
             var idUsuario = int.Parse(this._httpContextAccessor.HttpContext.Request.Headers["IdUsuario"]);
             var idSistema = _mapaRiesgoContext.Usuarios.Where(u => u.IdUsuario == idUsuario).First().IdSistemaOrigen;
 
-            var accidentes = _mapaRiesgoContext.Eventos
+            var accidentesQuery = _mapaRiesgoContext.Eventos
                 .Where(e => e.IdSistemaOrigen == idSistema)
                 .Where(e => e.IdTipoEvento == 1)
                 .Where(e => DateTime.Now < e.Fecha.AddMinutes(e.IdTipoEventoNavigation.Duracion))
@@ -127,11 +127,28 @@ namespace MapaRiesgo.API.BusinessLogic
                     Fecha = s.Fecha,
                     IdSistemaOrigen = s.IdSistemaOrigen,
                     IdEmpresa = s.IdEmpresa,
+                    Radio = s.IdTipoEventoNavigation.Radio,
                     Color = "#e53935"
                 })                
                 .ToList();
 
-            var bloqueos = _mapaRiesgoContext.Eventos
+
+
+            var accidentes = new List<MapaRiesgo.API.Classes.Modelo.Evento>();
+
+            if (accidentesQuery.Any())
+            {
+                foreach (var accidente in accidentesQuery)
+                {
+                    if (CalculateDistance((double)accidente.Latitud, (double)accidente.Longitud, (double)accidentesQuery[0].Latitud, (double)accidentesQuery[0].Longitud) < accidentesQuery[0].Radio) 
+                    {
+                        accidentes.Add(accidente);
+                    }
+                }
+            }
+
+
+            var bloqueosQuery = _mapaRiesgoContext.Eventos
                 .Where(e => e.IdSistemaOrigen == idSistema)
                 .Where(e => e.IdTipoEvento == 2)
                 .Where(e => DateTime.Now < e.Fecha.AddMinutes(e.IdTipoEventoNavigation.Duracion))
@@ -145,9 +162,24 @@ namespace MapaRiesgo.API.BusinessLogic
                     Fecha = s.Fecha,
                     IdSistemaOrigen = s.IdSistemaOrigen,
                     IdEmpresa = s.IdEmpresa,
+                    Radio = s.IdTipoEventoNavigation.Radio,
                     Color = "#F26522"
                 })
                 .ToList();
+
+
+            var bloqueos = new List<MapaRiesgo.API.Classes.Modelo.Evento>();
+
+            if (bloqueosQuery.Any())
+            {
+                foreach (var bloqueo in bloqueosQuery)
+                {
+                    if (CalculateDistance((double)bloqueo.Latitud, (double)bloqueo.Longitud, (double)bloqueosQuery[0].Latitud, (double)bloqueosQuery[0].Longitud) < bloqueosQuery[0].Radio)
+                    {
+                        accidentes.Add(bloqueo);
+                    }
+                }
+            }
 
             return new Response<RespuestaEventos>
             {
@@ -161,6 +193,35 @@ namespace MapaRiesgo.API.BusinessLogic
                 }
             };
         }
+
+
+
+
+
+        public double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            // Earth's radius in kilometers
+            const double EarthRadius = 6371.0;
+
+            // Convert degrees to radians
+            double dLat = ToRadians(lat2 - lat1);
+            double dLon = ToRadians(lon2 - lon1);
+
+            // Haversine formula
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                       Math.Cos(ToRadians(lat1)) * Math.Cos(ToRadians(lat2)) *
+                       Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+            return EarthRadius * c;
+        }
+        private double ToRadians(double angle)
+        {
+            return Math.PI * angle / 180.0;
+        }
+
+
 
     }
 }
